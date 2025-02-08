@@ -56,6 +56,8 @@ async function onLoad() {
   cursor = drawTrack(straight, cursor);
   cursor = drawTrack(straight, cursor);
   cursor = drawTrack(crossing, cursor);
+  cursor = drawTrack(straight, cursor);
+  cursor = drawTrack(rightcurve, cursor);
 
   //console.log(rotatePoint(-16, 0, -22.5));
   // Try rotating the first straight connection point
@@ -65,9 +67,31 @@ async function onLoad() {
   // Try rotating the top-left corner of the straight track
   //console.log(rotatePointAbout(0, 0,   16, 8,   22.5));
 
-  console.log(rotatePointInImage([0, 8], 22.5, straight.images["0"]));
-  console.log(rotatePointInImage([0, 8], 0, straight.images["0"]));
+  console.log("straight: " + rotatePointInImage([0, 8], 22.5, straight.images["0"]));
+  console.log("straight no rotation: " + rotatePointInImage([0, 8], 0, straight.images["0"]));
   console.log("crossing: " + rotatePointInImage([0, 16], 22.5, crossing.images["0"]));
+  console.log("straight conn: " + getConnection(straight, 0, 22.5));
+  console.log("crossing conn: " + getConnection(crossing, 0, 22.5));
+}
+
+
+function getConnection(track, connnumber, angle) {
+  let point = [track.conn[connnumber].x, track.conn[connnumber].y];
+  let baseimage = track.images["0"];
+  let image = track.images[angle.toString()];
+
+  let about = [baseimage.width / 2, baseimage.height / 2];
+  let pointprime = rotatePointAbout(point, angle, about);
+  let deltax = image.width - baseimage.width;
+  let deltay = image.height - baseimage.height;
+
+  pointprime[0] += deltax / 2;
+  pointprime[1] += deltay / 2;
+
+  pointprime[0] = Math.round(pointprime[0]);
+  pointprime[1] = Math.round(pointprime[1]);
+
+  return(pointprime);
 }
 
 
@@ -138,7 +162,6 @@ function rotatePointAbout(point, angle, about) {
     point[1] - about[1]
   ];
 
-
   let pointprime = rotatePoint(newpoint, angle);
 
   pointprime[0] += about[0];
@@ -149,6 +172,33 @@ function rotatePointAbout(point, angle, about) {
 
 
 function drawTrack(track, cursor) {
+  const canvas = document.getElementById("td");
+  const ctx = canvas.getContext("2d");
+
+  const conn = 0;
+  const peer = track.conn[conn].peer;
+
+  let newconn = getConnection(track, conn, cursor.angle);
+  let x = cursor.x - newconn[0];
+  let y = cursor.y - newconn[1];
+
+  ctx.drawImage(track.images[cursor.angle.toString()], x, y);
+
+  // Playing with focus.  Doesn't seem to do anything.
+  track.images[cursor.angle.toString()].classList.add("active");
+  ctx.drawFocusIfNeeded(track.images[cursor.angle.toString()]);
+
+  newconn = getConnection(track, peer, cursor.angle);
+
+  return({
+    x: x + newconn[0],
+    y: y + newconn[1],
+    angle: cursor.angle + track.conn[peer].angle
+  });
+}
+
+
+function olddrawTrack(track, cursor) {
   const canvas = document.getElementById("td");
   const ctx = canvas.getContext("2d");
 
@@ -175,7 +225,7 @@ function drawTrack(track, cursor) {
     x: x + newconn[0],
     y: y + newconn[1],
     angle: cursor.angle + track.conn[peer].angle
-  })
+  });
 
 //   return({
 //     x: x + track.conn[peer].x,
