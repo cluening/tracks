@@ -8,8 +8,8 @@ crossing:
     "67.5": graphics/crossing/67-5.png
   geometry:
     connections:
-      - { x: 0, y: 16, angle: 180, peer: 1 };
-      - { x: 32, y: 16, angle: 0, peer: 0 };
+      - { x: 0, y: 16, angle: 180, peer: 1 }
+      - { x: 32, y: 16, angle: 0, peer: 0 }
 
 rightcurve:
   sprites:
@@ -19,8 +19,8 @@ rightcurve:
     "67.5": graphics/curve/67-5.png
   geometry:
     connections:
-      - { x: 0, y: 8, angle: 180, peer: 1 };
-      - { x: 31, y: 14, angle: 22.5, peer: 0 };
+      - { x: 0, y: 8, angle: 180, peer: 1 }
+      - { x: 31, y: 14, angle: 22.5, peer: 0 }
 
 straight:
   sprites:
