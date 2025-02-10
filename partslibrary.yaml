@@ -6,19 +6,30 @@ crossing:
     "22.5": graphics/crossing/22-5.png
     "45": graphics/crossing/45.png
     "67.5": graphics/crossing/67-5.png
-  connections:
-    - { x: 0, y: 16, angle: 180, peer: 1 }
-    - { x: 32, y: 16, angle: 0, peer: 0 }
+  geometry:
+    crossing:
+      startconn: 0
+      connections:
+        - { x: 0, y: 16, angle: 180, peer: 1 }
+        - { x: 32, y: 16, angle: 0, peer: 0 }
 
-rightcurve:
+curve:
   imagepaths:
     "0": graphics/curve/0.png
     "22.5": graphics/curve/22-5.png
     "45": graphics/curve/45.png
     "67.5": graphics/curve/67-5.png
-  connections:
-    - { x: 0, y: 8, angle: 180, peer: 1 }
-    - { x: 31, y: 14, angle: 22.5, peer: 0 }
+  geometry:
+    left:
+      startconn: 1
+      connections:
+        - { x: 0, y: 8, angle: 180, peer: 1 }
+        - { x: 31, y: 14, angle: 22.5, peer: 0 }
+    right:
+      startconn: 0
+      connections:
+        - { x: 0, y: 8, angle: 180, peer: 1 }
+        - { x: 31, y: 14, angle: 22.5, peer: 0 }
 
 straight:
   imagepaths:
@@ -26,6 +37,9 @@ straight:
     "22.5": graphics/straight/22-5.png
     "45": graphics/straight/45.png
     "67.5": graphics/straight/67-5.png
-  connections:
-    - { x: 0, y: 8, angle: 180, peer: 1 }
-    - { x: 32, y: 8, angle: 0, peer: 0 }
+  geometry:
+    straight:
+      startconn: 0
+      connections:
+        - { x: 0, y: 8, angle: 180, peer: 1 }
+        - { x: 32, y: 8, angle: 0, peer: 0 }

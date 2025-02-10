@@ -24,12 +24,12 @@ async function onLoad() {
     angle: 0
   };
 
-  cursor = tracklist.add(new TrackPiece("straight", cursor));
-  cursor = tracklist.add(new TrackPiece("rightcurve", cursor));
-  cursor = tracklist.add(new TrackPiece("rightcurve", cursor));
-  cursor = tracklist.add(new TrackPiece("crossing", cursor));
-  cursor = tracklist.add(new TrackPiece("rightcurve", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("crossing", "crossing", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
 
   tracklist.draw(ctx);
 

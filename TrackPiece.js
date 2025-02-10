@@ -1,21 +1,24 @@
 class TrackPiece {
   type;
+  style;
   angle;
   images;
   imageorigin = Object();
   connections = [];
   activeconnection = -1;
 
-  constructor(type, cursor) {
+  constructor(type, style, cursor) {
     this.type = type;
+    this.style = style;
     this.angle = cursor.angle;
     this.images = partslibrary[type].images;
 
     // Build a list of connection points for this piece at its location and angle
     // Do the first one first to set an offset baseline
-    let baseconn = this.rotateConnection(partslibrary[type].connections[0], cursor.angle);
+    let startconn = partslibrary[type].geometry[style].startconn;
+    let baseconn = this.rotateConnection(partslibrary[type].geometry[style].connections[startconn], cursor.angle);
 
-    for (const conn of partslibrary[type].connections) {
+    for (const conn of partslibrary[type].geometry[style].connections) {
       //console.log("Connection: " + conn.x);
       let newconn = this.rotateConnection(conn, cursor.angle);
       // Shift the point to be relative to the 0th connection being at the cursor
@@ -30,7 +33,7 @@ class TrackPiece {
     this.imageorigin.y = cursor.y - baseconn.y;
 
     // Update which connection should have something added next
-    this.activeconnection = this.connections[0].peer;
+    this.activeconnection = this.connections[startconn].peer;
     
   }
  
