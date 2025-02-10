@@ -1,10 +1,18 @@
+/*
+TODO
+ - Make a Cursor class
+ - Make a PartsList class
+ - Revamp geometry section in parts library
+ - Handle image rotations for angles >= 90
+*/
+
 let partslibrary = Object();
+const tracklist = new TrackList();
 const partslist = [];
 
 async function onLoad() {
   const canvas = document.getElementById("td");
   const ctx = canvas.getContext("2d");
-  const image = document.getElementById("track");
 
   console.log("Loading!");
 
@@ -17,21 +25,15 @@ async function onLoad() {
     angle: 0
   };
 
-  partslist.push(new TrackPiece("straight", cursor));
-  cursor = partslist.at(-1).cursor;
+  cursor = tracklist.add(new TrackPiece("straight", cursor));
+  cursor = tracklist.add(new TrackPiece("rightcurve", cursor));
+  cursor = tracklist.add(new TrackPiece("rightcurve", cursor));
+  cursor = tracklist.add(new TrackPiece("crossing", cursor));
+  cursor = tracklist.add(new TrackPiece("rightcurve", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", cursor));
 
-  partslist.push(new TrackPiece("rightcurve", cursor));
-  cursor = partslist.at(-1).cursor;
+  tracklist.draw(ctx);
 
-  partslist.push(new TrackPiece("rightcurve", cursor));
-  cursor = partslist.at(-1).cursor;
-
-  partslist.push(new TrackPiece("straight", cursor));
-  cursor = partslist.at(-1).cursor;
-
-  for(part of partslist){
-    part.draw(canvas.getContext("2d"));
-  }
 }
 
 

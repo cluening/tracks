@@ -10,11 +10,6 @@ class TrackPiece {
     this.type = type;
     this.angle = cursor.angle;
     this.images = partslibrary[type].images;
- 
-    // What this needs to do
-    // - Calculate where the connection points are based on rotation
-    // - Calculate where to draw the image based on connection point[0] and rotation
-    // - Provide some hint about where the cursor moves to and its new angle.  Maybe a function that takes a cursor and returns the corresponding connection's peer?
 
     // Build a list of connection points for this piece at its location and angle
     // Do the first one first to set an offset baseline
@@ -31,7 +26,7 @@ class TrackPiece {
     }
 
     // Find the top-left corner of the image for drawing onto the canvas
-    this.imageorigin.x = cursor.x - baseconn.x;  // FIXME: Ha!  Not done.
+    this.imageorigin.x = cursor.x - baseconn.x;
     this.imageorigin.y = cursor.y - baseconn.y;
 
     // Update which connection should have something added next
