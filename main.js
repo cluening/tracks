@@ -1,7 +1,6 @@
 /*
 TODO
  - Make a Cursor class
- - Make a PartsList class
  - Revamp geometry section in parts library
  - Handle image rotations for angles >= 90
 */
