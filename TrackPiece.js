@@ -2,11 +2,9 @@ class TrackPiece {
   type;
   style;
   angle;
-  center = Object();
   image = Object();
   location = Object();  // Location of the starting connector for the given type and style
   ports = [];
-  imageports = [];  // FIXME: I should make a copy of the full image object that I care about instead of having this and "image" separate
   startport = -1;
   activeport = -1;
 
@@ -16,10 +14,7 @@ class TrackPiece {
     this.angle = cursor.angle;
     this.location.x = cursor.x;
     this.location.y = cursor.y;
-    this.image = partslibrary[type].images[(this.angle % 90).toString()].image;
-    this.imageports = partslibrary[type].images[(this.angle % 90).toString()].ports;
-    this.center = partslibrary[type].geometry[style].center;  // FIXME: is this needed?
-
+    this.image = partslibrary[type].images[(this.angle % 90).toString()]
     this.startport = partslibrary[type].geometry[style].startport;
 
     // Build this piece's list of connection ports given its angle
@@ -63,9 +58,7 @@ class TrackPiece {
     ctx.rotate(baseangle * Math.PI / 180);
     ctx.translate(Math.round(x) * -1, Math.round(y) * -1);
 
-    //console.log("Port: " + this.ports[0].x + "," + this.ports[0].y);
-    //console.log("Image port: " + this.imageports[0].x);
-    ctx.drawImage(this.image, Math.round(x - this.imageports[0].x), Math.round(y - this.imageports[0].y));
+    ctx.drawImage(this.image.image, Math.round(x - this.image.ports[0].x), Math.round(y - this.image.ports[0].y));
 
     ctx.restore();
   }
