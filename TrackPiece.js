@@ -2,76 +2,106 @@ class TrackPiece {
   type;
   style;
   angle;
-  images;
-  imageorigin = Object();
-  connections = [];
-  activeconnection = -1;
+  center = Object();
+  image = Object();
+  location = Object();  // Location of the starting connector for the given type and style
+  ports = [];
+  imageports = [];  // FIXME: I should make a copy of the full image object that I care about instead of having this and "image" separate
+  startport = -1;
+  activeport = -1;
 
   constructor(type, style, cursor) {
     this.type = type;
     this.style = style;
     this.angle = cursor.angle;
-    this.images = partslibrary[type].images;
+    this.location.x = cursor.x;
+    this.location.y = cursor.y;
+    this.image = partslibrary[type].images[(this.angle % 90).toString()].image;
+    this.imageports = partslibrary[type].images[(this.angle % 90).toString()].ports;
+    this.center = partslibrary[type].geometry[style].center;  // FIXME: is this needed?
 
-    // Build a list of connection points for this piece at its location and angle
-    // Do the first one first to set an offset baseline
-    let startconn = partslibrary[type].geometry[style].startconn;
-    let baseconn = this.rotateConnection(partslibrary[type].geometry[style].connections[startconn], cursor.angle);
+    this.startport = partslibrary[type].geometry[style].startport;
 
-    for (const conn of partslibrary[type].geometry[style].connections) {
+    // Build this piece's list of connection ports given its angle
+    for (const port of partslibrary[type].geometry[style].ports) {
       //console.log("Connection: " + conn.x);
-      let newconn = this.rotateConnection(conn, cursor.angle);
-      // Shift the point to be relative to the 0th connection being at the cursor
-      newconn.x = (newconn.x - baseconn.x) + cursor.x;
-      newconn.y = (newconn.y - baseconn.y) + cursor.y;
+      let newport = this.rotatePort(port, this.angle);
 
-      this.connections.push(newconn);
+      this.ports.push(newport);
     }
 
-    // Find the top-left corner of the image for drawing onto the canvas
-    this.imageorigin.x = cursor.x - baseconn.x;
-    this.imageorigin.y = cursor.y - baseconn.y;
-
-    // Update which connection should have something added next
-    this.activeconnection = this.connections[startconn].peer;
+    // Update which connection port should have something added next
+    this.activeport = this.ports[this.startport].peer;
     
   }
  
   get cursor() {
     return({
-      x: this.connections[this.activeconnection].x,
-      y: this.connections[this.activeconnection].y,
-      angle: this.angle + this.connections[this.activeconnection].angle
+      x: this.location.x - this.ports[this.startport].x + this.ports[this.activeport].x,
+      y: this.location.y - this.ports[this.startport].y + this.ports[this.activeport].y,
+      angle: this.angle + this.ports[this.activeport].angle
     });
   }
 
   draw(ctx) {
-    let x = this.imageorigin.x;
-    let y = this.imageorigin.y;
-    let image = this.images[this.angle.toString()];
-    ctx.drawImage(image, x, y);
+    let x = this.location.x;
+    let y = this.location.y;
+
+    let baseangle = Math.trunc(this.angle / 90) * 90;
+
+    ctx.save();
+
+    // Since rotate() rotates around grid lines and pixels are draw into grid squares, rotating
+    // a pixel at 0,0 180 degrees around 0,0 effectively puts that pixel at -1,-1.  These lines shift the
+    // location as needed to compensate for that.
+    if (baseangle == 90) { x += 1; }
+    if (baseangle == 180) { x += 1; y += 1; }
+    if (baseangle == 270) { y += 1; }
+
+    // Compensation done!  Time to rotate around this part's origin port
+    ctx.translate(Math.round(x), Math.round(y));
+    ctx.rotate(baseangle * Math.PI / 180);
+    ctx.translate(Math.round(x) * -1, Math.round(y) * -1);
+
+    //console.log("Port: " + this.ports[0].x + "," + this.ports[0].y);
+    //console.log("Image port: " + this.imageports[0].x);
+    ctx.drawImage(this.image, Math.round(x - this.imageports[0].x), Math.round(y - this.imageports[0].y));
+
+    ctx.restore();
+  }
+
+  drawPorts(ctx) {
+    let colors = ["blue", "red", "yellow", "black"];
+
+    for (const port in this.ports) {
+      let portx = this.location.x - this.ports[this.startport].x + this.ports[port].x;
+      let porty = this.location.y - this.ports[this.startport].y + this.ports[port].y;
+
+      console.log("port[" + port + "]: " + portx + ", " + porty);
+
+      if (port > -1) {
+        ctx.beginPath();
+        ctx.strokeStyle = colors[port];
+        ctx.fillStyle = colors[port];
+        ctx.fillRect(
+          Math.round( portx - 2 ),
+          Math.round( porty - 2 ),
+          5, 5
+        );
+        ctx.stroke();
+      }
+    }
   }
 
   //--- privateish stuff below
 
   // Find connection location within a rotated image
-  rotateConnection(conn, angle) {
-    let point = [conn.x, conn.y];
-    let baseimage = this.images["0"];
-    let image = this.images[angle.toString()];
-  
-    let center = [baseimage.width / 2, baseimage.height / 2];
-    let pointprime = this.rotatePointAbout(point, angle, center);
-    let deltax = image.width - baseimage.width;
-    let deltay = image.height - baseimage.height;
-  
-    pointprime[0] += deltax / 2;
-    pointprime[1] += deltay / 2;
-  
-    pointprime[0] = Math.round(pointprime[0]);
-    pointprime[1] = Math.round(pointprime[1]);
-  
-    return({ x: pointprime[0], y: pointprime[1], angle: conn.angle, peer: conn.peer });
+  rotatePort(port, angle) {
+    //console.log("Rotating to angle " + angle);
+    let point = [port.x, port.y];
+    let pointprime = this.rotatePointAround(point, angle, [0, 0]);
+
+    return({ x: pointprime[0], y: pointprime[1], angle: port.angle, peer: port.peer });
   }
 
   rotatePoint(point, angle) {
@@ -85,16 +115,16 @@ class TrackPiece {
     return(pointprime);
   }
 
-  rotatePointAbout(point, angle, about) {
+  rotatePointAround(point, angle, around) {
     let newpoint = [
-      point[0] - about[0],
-      point[1] - about[1]
+      point[0] - around[0],
+      point[1] - around[1]
     ];
   
     let pointprime = this.rotatePoint(newpoint, angle);
   
-    pointprime[0] += about[0];
-    pointprime[1] += about[1];
+    pointprime[0] += around[0];
+    pointprime[1] += around[1];
   
     return(pointprime);
   }

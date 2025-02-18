@@ -10,8 +10,9 @@ class TrackList {
 
   // Draw the whole track list into the given context
   draw(ctx) {
-    for(let track of this.tracklist){
+    for (let track of this.tracklist){
       track.draw(ctx);
+      //track.drawPorts(ctx);
     }
   }
 }

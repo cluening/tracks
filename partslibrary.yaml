@@ -1,6 +1,67 @@
 # Note: this file is used to generate partslibrary.json
 
-crossing:
+curve:
+  images:
+    "0":
+     path: graphics/curve/0.png
+     ports:
+       - { x: 0, y: 8, angle: 0 }
+       - { x: 31, y: 14, angle: 202.5 }  # Looks like "angle" here is looking into the port, with zero looking directly west to east and degrees counting up clockwise
+    "22.5":
+      path: graphics/curve/22-5.png
+      ports:
+       - { x: 3, y: 7, angle: 22.5 }
+       - { x: 29, y: 24, angle: 225 }
+    "45":
+      path: graphics/curve/45.png
+      ports:
+       - { x: 6, y: 5, angle: 45 }
+       - { x: 23, y: 31, angle: 247.5 }
+    "67.5":
+      path: graphics/curve/67-5.png
+      ports:
+       - { x: 7, y: 3, angle: 67.5 }
+       - { x: 13, y: 34, angle: 270 }
+  geometry:
+    left:
+      startport: 1
+      ports:
+        - { x: 0, y: 8, angle: 180, peer: 1 }
+        - { x: 31, y: 14, angle: 22.5, peer: 0 }
+    right:
+      startport: 0
+      ports:
+        - { x: 0, y: 0, angle: 180, peer: 1 }
+        - { x: 30.6146746, y: 6.0896374, angle: 22.5, peer: 0 }  # raw td.exe values x2
+
+straight:
+  images:
+    "0":
+      path: graphics/straight/0.png
+      ports:
+       - { x: 0, y: 8, angle: 0 }
+    "22.5":
+      path: graphics/straight/22-5.png
+      ports:
+       - { x: 3, y: 7, angle: 22.5 }
+    "45":
+      path: graphics/straight/45.png
+      ports:
+       - { x: 6, y: 5, angle: 45 }
+    "67.5":
+      path: graphics/straight/67-5.png
+      ports:
+       - { x: 6, y: 3, angle: 67.5 }
+  geometry:
+    straight:
+      startport: 0
+      ports:
+        - { x: 0, y: 0, angle: 180, peer: 1 }
+        - { x: 32, y: 0, angle: 0, peer: 0 }
+
+
+
+crossingold:
   imagepaths:
     "0": graphics/crossing/0.png
     "22.5": graphics/crossing/22-5.png
@@ -13,7 +74,7 @@ crossing:
         - { x: 0, y: 16, angle: 180, peer: 1 }
         - { x: 32, y: 16, angle: 0, peer: 0 }
 
-curve:
+curveold:
   imagepaths:
     "0": graphics/curve/0.png
     "22.5": graphics/curve/22-5.png
@@ -27,11 +88,12 @@ curve:
         - { x: 31, y: 14, angle: 22.5, peer: 0 }
     right:
       startconn: 0
+      center: { x: 15.6072258, y: 6.5031325 }
       connections:
         - { x: 0, y: 8, angle: 180, peer: 1 }
-        - { x: 31, y: 14, angle: 22.5, peer: 0 }
+        - { x: 30.6146746, y: 14.0896374, angle: 22.5, peer: 0 }  # raw td.exe values x2
 
-straight:
+straightold:
   imagepaths:
     "0": graphics/straight/0.png
     "22.5": graphics/straight/22-5.png
@@ -40,6 +102,7 @@ straight:
   geometry:
     straight:
       startconn: 0
+      center: { x: 16, y: 8 }
       connections:
         - { x: 0, y: 8, angle: 180, peer: 1 }
         - { x: 32, y: 8, angle: 0, peer: 0 }

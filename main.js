@@ -1,7 +1,6 @@
 /*
 TODO
  - Make a Cursor class
- - Revamp geometry section in parts library
  - Handle image rotations for angles >= 90
 */
 
@@ -19,17 +18,46 @@ async function onLoad() {
   //console.log(partslibrary);
 
   let cursor = {
-    x: 10,
+    x: 100,
     y: 20,
     angle: 0
   };
 
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  console.log(cursor);
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  console.log(cursor);
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
   cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("crossing", "crossing", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
   cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("crossing", "crossing", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
 
   tracklist.draw(ctx);
 
@@ -59,6 +87,25 @@ async function loadImages(imagepaths) {
 }
 
 
+async function loadImage(imagepath) {
+  //const promise = Object();
+  //const image = Object();
+
+  let url = imagepath;
+  //console.log("Loading: " + angle);
+  const promise = new Promise((resolve, reject) => {
+    const image = new Image();
+    image.src = url;
+    image.onload = () => resolve(image);
+    image.onerror = () => reject("Failed to load image from " + url);
+  });
+
+  const image = await promise;
+
+  return(image);
+}
+
+
 async function loadPartsLibrary() {
   const url = "partslibrary.json";
   let partslibrary;
@@ -75,7 +122,10 @@ async function loadPartsLibrary() {
 
     for (const partname in partslibrary) {
       //console.log("Partname: " + partname);
-      partslibrary[partname]["images"] = await loadImages(partslibrary[partname].imagepaths);
+      //partslibrary[partname]["images"] = await loadImages(partslibrary[partname].imagepaths);
+      for (const angle in partslibrary[partname].images) {
+        partslibrary[partname].images[angle].image = await loadImage(partslibrary[partname].images[angle].path)
+      }
     }
 
   } catch (error) {
