@@ -5,6 +5,8 @@ class TrackPiece {
   image = Object();
   location = Object();  // Location of the starting connector for the given type and style
   ports = [];
+  imagerotation = 0;
+  imagemirror = 1;
   startport = -1;
   activeport = -1;
 
@@ -16,12 +18,15 @@ class TrackPiece {
     this.location.y = cursor.y;
     this.image = partslibrary[type].images[(this.angle % 90).toString()]
     this.startport = partslibrary[type].geometry[style].startport;
+    this.imagerotation = partslibrary[type].geometry[style].imagerotation;
+    this.imagemirror = partslibrary[type].geometry[style].imagemirror;
 
     // Build this piece's list of connection ports given its angle
     for (const port of partslibrary[type].geometry[style].ports) {
-      //console.log("Connection: " + conn.x);
-      let newport = this.rotatePort(port, this.angle);
+      console.log("Need to rotate around " + partslibrary[this.type].geometry[this.style].ports[this.startport].x + "," + partslibrary[this.type].geometry[this.style].ports[this.startport].y);
 
+      let newport = this.rotatePort(port, this.angle);
+      console.log(newport);
       this.ports.push(newport);
     }
 
@@ -56,9 +61,22 @@ class TrackPiece {
     // Compensation done!  Time to rotate around this part's origin port
     ctx.translate(Math.round(x), Math.round(y));
     ctx.rotate(baseangle * Math.PI / 180);
+    //ctx.rotate(this.imagerotation * Math.PI / 180);
+    ctx.scale(1, this.imagemirror);
     ctx.translate(Math.round(x) * -1, Math.round(y) * -1);
 
-    ctx.drawImage(this.image.image, Math.round(x - this.image.ports[0].x), Math.round(y - this.image.ports[0].y));
+    // ctx.drawImage(this.image.image, Math.round(x - this.image.ports[0].x), Math.round(y - this.image.ports[0].y));
+    // ctx.drawImage(
+    //   this.image.image,
+    //   Math.round(x - this.image.ports[this.startport].x),
+    //   Math.round(y - this.image.ports[this.startport].y)
+    // );
+
+    ctx.drawImage(
+      this.image.image,
+      Math.round(x - this.image.ports[this.startport].x),
+      Math.round(y - this.image.ports[this.startport].y)
+    );
 
     ctx.restore();
   }
@@ -90,9 +108,17 @@ class TrackPiece {
 
   // Find connection location within a rotated image
   rotatePort(port, angle) {
-    //console.log("Rotating to angle " + angle);
+    console.log("Rotating " + port.x + "," + port.y + " to angle " + angle);
     let point = [port.x, port.y];
-    let pointprime = this.rotatePointAround(point, angle, [0, 0]);
+    // let pointprime = this.rotatePointAround(point, angle, [0, 0]);
+    let pointprime = this.rotatePointAround(
+      point, angle + this.imagerotation, [
+        partslibrary[this.type].geometry[this.style].ports[this.startport].x,
+        partslibrary[this.type].geometry[this.style].ports[this.startport].y
+      ]
+    );
+
+    console.log(pointprime);
 
     return({ x: pointprime[0], y: pointprime[1], angle: port.angle, peer: port.peer });
   }

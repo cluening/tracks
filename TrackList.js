@@ -12,7 +12,7 @@ class TrackList {
   draw(ctx) {
     for (let track of this.tracklist){
       track.draw(ctx);
-      //track.drawPorts(ctx);
+      track.drawPorts(ctx);
     }
   }
 }

@@ -24,12 +24,16 @@ curve:
        - { x: 13, y: 34, angle: 270 }
   geometry:
     left:
-      startport: 1
+      startport: 0
+      imagerotation: 180
+      imagemirror: -1
       ports:
         - { x: 0, y: 8, angle: 180, peer: 1 }
-        - { x: 31, y: 14, angle: 22.5, peer: 0 }
+        - { x: -30.6146746, y: 6.0896374, angle: 22.5, peer: 0 }  # raw td.exe values x2
     right:
       startport: 0
+      imagerotation: 0
+      imagemirror: 1
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: 30.6146746, y: 6.0896374, angle: 22.5, peer: 0 }  # raw td.exe values x2
@@ -55,6 +59,8 @@ straight:
   geometry:
     straight:
       startport: 0
+      imagerotation: 0
+      imagemirror: 1
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: 32, y: 0, angle: 0, peer: 0 }

@@ -19,37 +19,40 @@ async function onLoad() {
 
   let cursor = {
     x: 100,
-    y: 20,
+    y: 100,
     angle: 0
   };
 
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  console.log(cursor);
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  console.log(cursor);
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
 
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
 
   // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
