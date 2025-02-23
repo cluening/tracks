@@ -17,25 +17,117 @@ async function onLoad() {
   partslibrary = await loadPartsLibrary();
   //console.log(partslibrary);
 
-  let cursor = {
-    x: 100,
-    y: 100,
-    angle: 0
-  };
+  let cursor = new Cursor();
+  cursor.x = 100;
+  cursor.y = 100;
+  cursor.angle = 0;
+
+  // console.log("-------- Adding new straight piece --------");
+  // let newpiece = new TrackPiece("straight", "straight", cursor);
+  // console.log("Location:");
+  // console.log(newpiece.location);
+  // console.log("Angle:");
+  // console.log(newpiece.angle);
+  // console.log("Ports:");
+  // console.log(newpiece.ports);
+  // console.log("Active port:");
+  // console.log(newpiece.activeport);
+  // console.log("Cursor:");
+  // console.log(newpiece.cursor);
+  // cursor = newpiece.cursor;
+  // newpiece.drawPorts(ctx);
+
+  // console.log("-------- Adding new left curved piece --------");
+  // newpiece = new TrackPiece("curve", "left", cursor);
+  // console.log("Location:");
+  // console.log(newpiece.location);
+  // console.log("Angle:");
+  // console.log(newpiece.angle);
+  // console.log("Ports:");
+  // console.log(newpiece.ports);
+  // console.log("Active port:");
+  // console.log(newpiece.activeport);
+  // console.log("Cursor:");
+  // console.log(newpiece.cursor);
+  // cursor = newpiece.cursor;
+  // newpiece.drawPorts(ctx);
+
+  // console.log("-------- Adding new right curved piece --------");
+  // newpiece = new TrackPiece("curve", "right", cursor);
+  // console.log("Location:");
+  // console.log(newpiece.location);
+  // console.log("Angle:");
+  // console.log(newpiece.angle);
+  // console.log("Ports:");
+  // console.log(newpiece.ports);
+  // console.log("Active port:");
+  // console.log(newpiece.activeport);
+  // console.log("Cursor:");
+  // console.log(newpiece.cursor);
+  // cursor = newpiece.cursor;
+  // newpiece.drawPorts(ctx);
+
+  // console.log("-------- Adding new left switch piece --------");
+  // newpiece = new TrackPiece("leftpoint", "rightjoin", cursor);
+  // console.log("Location:");
+  // console.log(newpiece.location);
+  // console.log("Angle:");
+  // console.log(newpiece.angle);
+  // console.log("Ports:");
+  // console.log(newpiece.ports);
+  // console.log("Active port:");
+  // console.log(newpiece.activeport);
+  // console.log("Cursor:");
+  // console.log(newpiece.cursor);
+  // cursor = newpiece.cursor;
+  // newpiece.drawPorts(ctx);
+
 
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
   // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
 
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
-  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
-  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
-  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
 
   // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
   // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
