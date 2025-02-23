@@ -6,7 +6,7 @@ crossing:
       startport: 0
       ports:
        -  { x: 0, y: 0, angle: 180, peer: 1 }
-       -  { x: 16, y: -8, angle: 0, peer: 0 }
+       -  { x: 16, y: 0, angle: 0, peer: 0 }
        -  { x: 8, y: -8, angle: -90, peer: 3 }
        -  { x: 8, y: 8, angle: 90, peer: 2 }
 
