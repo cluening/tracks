@@ -1,5 +1,15 @@
 # Note: this file is used to generate partslibrary.json
 
+crossing:
+  geometry:
+    crossing:
+      startport: 0
+      ports:
+       -  { x: 0, y: 0, angle: 180, peer: 1 }
+       -  { x: 16, y: -8, angle: 0, peer: 0 }
+       -  { x: 8, y: -8, angle: -90, peer: 3 }
+       -  { x: 8, y: 8, angle: 90, peer: 2 }
+
 curve:
   images:
     "0":
@@ -86,51 +96,23 @@ leftpoint:
        - { x: -32, y: 0, angle: 0, peer: 0 }
        - { x: -32.6926627, y: 12.9551813, angle: -22.5, peer: 0 }
 
-
-
-
-crossingold:
-  imagepaths:
-    "0": graphics/crossing/0.png
-    "22.5": graphics/crossing/22-5.png
-    "45": graphics/crossing/45.png
-    "67.5": graphics/crossing/67-5.png
+rightpoint:
   geometry:
-    crossing:
-      startconn: 0
-      connections:
-        - { x: 0, y: 16, angle: 180, peer: 1 }
-        - { x: 32, y: 16, angle: 0, peer: 0 }
-
-curveold:
-  imagepaths:
-    "0": graphics/curve/0.png
-    "22.5": graphics/curve/22-5.png
-    "45": graphics/curve/45.png
-    "67.5": graphics/curve/67-5.png
-  geometry:
-    left:
-      startconn: 1
-      connections:
-        - { x: 0, y: 8, angle: 180, peer: 1 }
-        - { x: 31, y: 14, angle: 22.5, peer: 0 }
-    right:
-      startconn: 0
-      center: { x: 15.6072258, y: 6.5031325 }
-      connections:
-        - { x: 0, y: 8, angle: 180, peer: 1 }
-        - { x: 30.6146746, y: 14.0896374, angle: 22.5, peer: 0 }  # raw td.exe values x2
-
-straightold:
-  imagepaths:
-    "0": graphics/straight/0.png
-    "22.5": graphics/straight/22-5.png
-    "45": graphics/straight/45.png
-    "67.5": graphics/straight/67-5.png
-  geometry:
-    straight:
-      startconn: 0
-      center: { x: 16, y: 8 }
-      connections:
-        - { x: 0, y: 8, angle: 180, peer: 1 }
-        - { x: 32, y: 8, angle: 0, peer: 0 }
+    rightsplit:
+      startport: 0
+      ports:
+       - { x: 0, y: 0, angle: 180, peer: 1 }
+       - { x: 32, y: 0, angle: 0, peer: 0 }
+       - { x: 32.6926627, y: 12.9551813, angle: 22.5, peer: 0 }
+    leftjoin:
+      startport: 2
+      ports:
+       - { x: 0, y: 0, angle: 180, peer: 1 }
+       - { x: -29.56414504, y: 12.24586984, angle: 0, peer: 0 }
+       - { x: -35.16181518, y: 0.54191353, angle: 22.5, peer: 0 }
+    leftmerge:
+      startport: 1
+      ports:
+       - { x: 0, y: 0, angle: 180, peer: 1 }
+       - { x: -32, y: 0, angle: 0, peer: 0 }
+       - { x: -32.6926627, y: -12.9551813, angle: 22.5, peer: 0 }
