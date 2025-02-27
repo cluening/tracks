@@ -48,15 +48,17 @@ class TrackPiece {
       newport.peer = port.peer;
 
       // If the port is the default one attach it to the previous piece that the cursor was on.
+      // FIXME: should this move to the TrackList object?
       if (portnum == this.startport) {
-        newport.connectedto = cursor.activepiece;  // FIXME: I should probably change "connectedto" to "connectedpiece" to make it more clear
+        newport.connectedpiece = cursor.activepiece;
       } else {
-        newport.connectedto = undefined;
+        newport.connectedpiece = undefined;
       }
 
       // Also connect the previous piece to this one
-      if (newport.connectedto != undefined) {
-        newport.connectedto.ports[newport.connectedto.activeport].connectedto = this;
+      // FIXME: should this move to the TrackList object?
+      if (newport.connectedpiece != undefined) {
+        newport.connectedpiece.ports[newport.connectedpiece.activeport].connectedpiece = this;
       }
 
       this.ports.push(newport);
