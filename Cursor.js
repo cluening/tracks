@@ -3,7 +3,7 @@ class Cursor {
   y = 0;
   angle = 0;
   activepiece = undefined;
-  activeport = undefined;
+  activeportnum = undefined;
 
   draw(ctx) {
     let color = "black";
@@ -54,7 +54,7 @@ class Cursor {
 
     // Find possible directions for this port's peer, which should always exist
     // const activeport = this.activepiece.ports[this.activepiece.activeport]
-    const activeport = this.activepiece.ports[this.activeport];
+    const activeport = this.activepiece.ports[this.activeportnum];
     portdirections = this.directionToPort(this.activepiece.ports[activeport.peer]);
 
     options[0] = {
@@ -104,14 +104,14 @@ class Cursor {
       this.y = options[0].piece.ports[options[0].port].y;
       this.angle = options[0].piece.ports[options[0].port].angle;
       this.activepiece = options[0].piece
-      this.activeport = options[0].port;
+      this.activeportnum = options[0].port;
     } else if (options[1].xdirection == direction || options[1].ydirection == direction) {
       // console.log("Move to options[1]");
       this.x = options[1].piece.ports[options[1].port].x;
       this.y = options[1].piece.ports[options[1].port].y;
       this.angle = options[1].piece.ports[options[1].port].angle;
       this.activepiece = options[1].piece
-      this.activeport = options[1].port
+      this.activeportnum = options[1].port
     } else {
       // console.log("Nowhere to move");
     }

@@ -48,15 +48,12 @@ class TrackPiece {
 
       this.ports.push(newport);
     }
-
-    // Update which connection port should have something added next
-    this.activeport = partslibrary[this.type].geometry[this.geometry].ports[this.startport].peer;
   }
 
 
   // Connect a new piece to this piece's active port
-  connectPiece(newpiece) {
-    this.ports[this.activeport].connectedpiece = newpiece;
+  connectPiece(newpiece, portnum) {
+    this.ports[portnum].connectedpiece = newpiece;
     newpiece.ports[newpiece.startport].connectedpiece = this;
   }
 
@@ -83,16 +80,17 @@ class TrackPiece {
   }
 
   getPortAt(x, y) {
-    // console.log("Getting port at "  + x + "," + y);
+    console.log("Getting port at "  + x + "," + y);
 
     for (const portnum in this.ports){
       if ((this.ports[portnum].x == x) && (this.ports[portnum].y == y)) {
-        // console.log("Found a port! " + portnum);
+        console.log("Found a port! " + portnum);
         return portnum;
       }
     }
 
     // If we get here, no port was found
+    console.log("No port found");
     return undefined;
   }
 
