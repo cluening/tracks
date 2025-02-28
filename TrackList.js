@@ -18,7 +18,7 @@ class TrackList {
     newcursor.activeportnum = newcursor.activepiece.ports[newpieceportnum].peer;
     newcursor.x = newcursor.activepiece.ports[newcursor.activeportnum].x;
     newcursor.y = newcursor.activepiece.ports[newcursor.activeportnum].y;
-    newcursor.angle = (newcursor.activepiece.angle + newcursor.activepiece.ports[newcursor.activeportnum].angle) % 360;
+    newcursor.angle = (newcursor.activepiece.ports[newcursor.activeportnum].angle) % 360;
 
     return(newcursor);
   }

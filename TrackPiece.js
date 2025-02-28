@@ -37,10 +37,10 @@ class TrackPiece {
       newport.y += this.location.y;
 
       // Find the angle of this port: rotate the start port to 0 degrees, then
-      // add back in this port's rotation offset
+      // add back in this port's rotation offset, then add in this piece's angle
       newport.angle = partslibrary[this.type].geometry[this.geometry].ports[0].angle 
           - partslibrary[this.type].geometry[this.geometry].ports[this.startport].angle
-          + port.angle;
+          + port.angle + this.angle;
       newport.angle = newport.angle % 360;
 
       // Record this port's peer
@@ -80,17 +80,17 @@ class TrackPiece {
   }
 
   getPortAt(x, y) {
-    console.log("Getting port at "  + x + "," + y);
+    // console.log("Getting port at "  + x + "," + y);
 
     for (const portnum in this.ports){
       if ((this.ports[portnum].x == x) && (this.ports[portnum].y == y)) {
-        console.log("Found a port! " + portnum);
+        // console.log("Found a port! " + portnum);
         return portnum;
       }
     }
 
     // If we get here, no port was found
-    console.log("No port found");
+    // console.log("No port found");
     return undefined;
   }
 
