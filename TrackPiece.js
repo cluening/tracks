@@ -47,25 +47,22 @@ class TrackPiece {
       // Record this port's peer
       newport.peer = port.peer;
 
-      // If the port is the default one attach it to the previous piece that the cursor was on.
-      // FIXME: should this move to the TrackList object?
-      if (portnum == this.startport) {
-        newport.connectedpiece = cursor.activepiece;
-      } else {
-        newport.connectedpiece = undefined;
-      }
-
-      // Also connect the previous piece to this one
-      // FIXME: should this move to the TrackList object?
-      if (newport.connectedpiece != undefined) {
-        newport.connectedpiece.ports[newport.connectedpiece.activeport].connectedpiece = this;
-      }
-
       this.ports.push(newport);
     }
 
     // Update which connection port should have something added next
     this.activeport = partslibrary[this.type].geometry[this.geometry].ports[this.startport].peer;
+  }
+
+
+  // Connect a new piece to this piece's active port
+  connectPiece(newpiece) {
+    console.log("Connecting piece at " + this.location.x + "," + this.location.y + " to piece at " + newpiece.location.x + "," + newpiece.location.y);
+    console.log("This piece's port: " + this.activeport);
+    console.log("The new piece's port: " + newpiece.startport);
+
+    this.ports[this.activeport].connectedpiece = newpiece;
+    newpiece.ports[newpiece.startport].connectedpiece = this;
   }
 
   get cursor() {

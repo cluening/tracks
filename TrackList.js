@@ -5,6 +5,12 @@ class TrackList {
   add(track) {
     this.tracklist.push(track);
 
+    // Connect the new piece to the one that the cursor is currently on
+    console.log("Connecting new piece to existing piece");
+    if (cursor.activepiece != undefined) {
+      cursor.activepiece.connectPiece(track);
+    }
+
     return(track.cursor);
   }
 
