@@ -104,10 +104,10 @@ async function onLoad() {
   cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
   cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
 
-  // // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
-  // // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
-  // // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
-  // // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
 
   // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
