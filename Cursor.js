@@ -5,8 +5,15 @@ class Cursor {
   activepiece = undefined;
   activeportnum = undefined;
 
+  
   draw(ctx) {
     let color = "black";
+
+    ctx.save();
+
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle * Math.PI / 180);
+    ctx.translate(this.x * -1, this.y * -1);
 
     ctx.beginPath();
     ctx.strokeStyle = color;
@@ -17,7 +24,10 @@ class Cursor {
       3, 11
     );
     ctx.stroke();
+
+    ctx.restore();
   }
+
 
   handleKeyPress(code) {
     switch(code) {
