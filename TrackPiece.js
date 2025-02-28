@@ -4,7 +4,7 @@ class TrackPiece {
   location = Object();
   angle = 0;
   ports = [];
-  startport = -1;  // FIXME: this should be changed to "startportnum"
+  startportnum = -1;
 
   constructor(type, geometry, cursor) {
     this.type = type;
@@ -12,7 +12,7 @@ class TrackPiece {
     this.location.x = cursor.x;
     this.location.y = cursor.y;
     this.angle = cursor.angle;
-    this.startport = partslibrary[this.type].geometry[this.geometry].startport;
+    this.startportnum = partslibrary[this.type].geometry[this.geometry].startportnum;
 
     // Find the absolute locations of all of this part's ports based on the geometry being used
     for (const portnum in partslibrary[this.type].geometry[this.geometry].ports) {
@@ -21,8 +21,8 @@ class TrackPiece {
       const newportprime = Object();
 
       // First find this port's location relative to the geometry's start port
-      newport.x = port.x - partslibrary[this.type].geometry[this.geometry].ports[this.startport].x;
-      newport.y = port.y - partslibrary[this.type].geometry[this.geometry].ports[this.startport].y;
+      newport.x = port.x - partslibrary[this.type].geometry[this.geometry].ports[this.startportnum].x;
+      newport.y = port.y - partslibrary[this.type].geometry[this.geometry].ports[this.startportnum].y;
 
       // Next, rotate it around the start port (which is at 0,0 at this point) by this piece's angle
       let theta = this.angle * Math.PI / 180;
@@ -39,7 +39,7 @@ class TrackPiece {
       // Find the angle of this port: rotate the start port to 0 degrees, then
       // add back in this port's rotation offset, then add in this piece's angle
       newport.angle = partslibrary[this.type].geometry[this.geometry].ports[0].angle 
-          - partslibrary[this.type].geometry[this.geometry].ports[this.startport].angle
+          - partslibrary[this.type].geometry[this.geometry].ports[this.startportnum].angle
           + port.angle + this.angle;
       newport.angle = newport.angle % 360;
 

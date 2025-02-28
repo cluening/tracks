@@ -3,7 +3,7 @@
 crossing:
   geometry:
     crossing:
-      startport: 0
+      startportnum: 0
       ports:
        -  { x: 0, y: 0, angle: 180, peer: 1 }
        -  { x: 16, y: 0, angle: 0, peer: 0 }
@@ -34,14 +34,14 @@ curve:
        - { x: 13, y: 34, angle: 270 }
   geometry:
     left:
-      startport: 1
+      startportnum: 1
       imagerotation: 180
       imagemirror: -1
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: -15.3073373, y: 3.0448187, angle: 22.5, peer: 0 }
     right:
-      startport: 0
+      startportnum: 0
       imagerotation: 0
       imagemirror: 1
       ports:
@@ -68,7 +68,7 @@ straight:
        - { x: 6, y: 3, angle: 67.5 }
   geometry:
     straight:
-      startport: 0
+      startportnum: 0
       imagerotation: 0
       imagemirror: 1
       ports:
@@ -78,19 +78,19 @@ straight:
 leftpoint:
   geometry:
     leftsplit:
-      startport: 0
+      startportnum: 0
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: 32, y: 0, angle: 0, peer: 0 }
        - { x: 32.6926627, y: -12.9551813, angle: -22.5, peer: 0 }
     rightjoin:
-      startport: 2
+      startportnum: 2
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -29.56414504, y: -12.24586984, angle: 0, peer: 0 }
        - { x: -35.16181518, y: -0.54191353, angle: -22.5, peer: 0 }
     rightmerge:
-      startport: 1
+      startportnum: 1
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -32, y: 0, angle: 0, peer: 0 }
@@ -99,19 +99,19 @@ leftpoint:
 rightpoint:
   geometry:
     rightsplit:
-      startport: 0
+      startportnum: 0
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: 32, y: 0, angle: 0, peer: 0 }
        - { x: 32.6926627, y: 12.9551813, angle: 22.5, peer: 0 }
     leftjoin:
-      startport: 2
+      startportnum: 2
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -29.56414504, y: 12.24586984, angle: 0, peer: 0 }
        - { x: -35.16181518, y: 0.54191353, angle: 22.5, peer: 0 }
     leftmerge:
-      startport: 1
+      startportnum: 1
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -32, y: 0, angle: 0, peer: 0 }
