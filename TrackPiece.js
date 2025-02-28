@@ -5,7 +5,6 @@ class TrackPiece {
   angle = 0;
   ports = [];
   startport = -1;
-  activeport = -1;
 
   constructor(type, geometry, cursor) {
     this.type = type;
@@ -57,23 +56,8 @@ class TrackPiece {
 
   // Connect a new piece to this piece's active port
   connectPiece(newpiece) {
-    console.log("Connecting piece at " + this.location.x + "," + this.location.y + " to piece at " + newpiece.location.x + "," + newpiece.location.y);
-    console.log("This piece's port: " + this.activeport);
-    console.log("The new piece's port: " + newpiece.startport);
-
     this.ports[this.activeport].connectedpiece = newpiece;
     newpiece.ports[newpiece.startport].connectedpiece = this;
-  }
-
-  get cursor() {
-    const newcursor = new Cursor();
-
-    newcursor.x = this.ports[this.activeport].x;
-    newcursor.y = this.ports[this.activeport].y;
-    newcursor.angle = (this.angle + this.ports[this.activeport].angle) % 360;
-    newcursor.activepiece = this;
-
-    return newcursor;
   }
 
   drawPorts(ctx) {
