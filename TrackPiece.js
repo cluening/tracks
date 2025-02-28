@@ -4,7 +4,7 @@ class TrackPiece {
   location = Object();
   angle = 0;
   ports = [];
-  startport = -1;
+  startport = -1;  // FIXME: this should be changed to "startportnum"
 
   constructor(type, geometry, cursor) {
     this.type = type;
@@ -52,10 +52,11 @@ class TrackPiece {
 
 
   // Connect a new piece to this piece's active port
-  connectPiece(newpiece, portnum) {
+  connectPiece(portnum, newpiece, newpieceportnum) {
     this.ports[portnum].connectedpiece = newpiece;
-    newpiece.ports[newpiece.startport].connectedpiece = this;
+    newpiece.ports[newpieceportnum].connectedpiece = this;
   }
+
 
   drawPorts(ctx) {
     let colors = ["blue", "red", "cornflowerblue", "orange"];
@@ -81,12 +82,21 @@ class TrackPiece {
 
   getPortAt(x, y) {
     // console.log("Getting port at "  + x + "," + y);
+    const precision = 0.000001;
 
     for (const portnum in this.ports){
-      if ((this.ports[portnum].x == x) && (this.ports[portnum].y == y)) {
+      if (
+        (Math.abs(this.ports[portnum].x - x) <= precision) && 
+        (Math.abs(this.ports[portnum].y - y) <= precision)
+      ) {
         // console.log("Found a port! " + portnum);
         return portnum;
       }
+
+      // if ((this.ports[portnum].x == x) && (this.ports[portnum].y == y)) {
+      //   // console.log("Found a port! " + portnum);
+      //   return portnum;
+      // }
     }
 
     // If we get here, no port was found
