@@ -4,19 +4,21 @@ class TrackList {
   // Add a new piece of track
   // FIXME: this needs to do nothing if the active port is already connected to something
   add(newpiece) {
-    // If the cursor is on a piece, connect the new piece to it
-    if (cursor.activepiece != undefined) {
-      cursor.activepiece.connectPiece(cursor.activeportnum, newpiece, newpiece.startportnum);
-    }
-
-    // If the new piece's other end lines up with an already-existing piece,
-    // connect the new piece to it
-    for (const piece of this.tracklist) {
-      const x = newpiece.ports[newpiece.ports[newpiece.startportnum].peer].x;
-      const y = newpiece.ports[newpiece.ports[newpiece.startportnum].peer].y;
-      const portnum = piece.getPortAt(x, y);
-      if (portnum != undefined) {
-        newpiece.connectPiece(newpiece.ports[newpiece.startportnum].peer, piece, portnum);
+    // Connect the new piece to the other pieces it should be connected to
+    for (const portnum in newpiece.ports) {
+      if ((portnum == newpiece.startportnum) && (cursor.activepiece != undefined)) {
+        // The startport should connect to the cursor's currently active piece
+        cursor.activepiece.connectPiece(cursor.activeportnum, newpiece, newpiece.startportnum);
+      } else {
+        // Other ports should connect to existing pieces with overlapping ports
+        for (const piece of this.tracklist) {
+          const x = newpiece.ports[portnum].x;
+          const y = newpiece.ports[portnum].y;
+          const otherportnum = piece.getPortAt(x, y);
+          if (otherportnum != undefined) {
+            newpiece.connectPiece(portnum, piece, otherportnum);
+          }
+        }
       }
     }
 
@@ -42,11 +44,12 @@ class TrackList {
     newcursor.activepiece = undefined;
     newcursor.activeportnum = undefined;
     newcursor.x = rmpiece.x;
-    newcursor.y = rmpice.y;
+    newcursor.y = rmpiece.y;
     newcursor.angle = 0;
 
     // Look for a connected piece to move the cursor to
     // If there's not one, the defaults above will be returned
+    // FIXME: maybe this should only update if it's the current port's peer; otherwise, the cursor can jump in a weird direction with crossing pieces
     for (const portnum in rmpiece.ports) {
       if (rmpiece.ports[portnum].connectedpiece != undefined) {
         newcursor.activepiece = rmpiece.ports[portnum].connectedpiece;
