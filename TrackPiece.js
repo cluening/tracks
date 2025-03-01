@@ -6,6 +6,8 @@ class TrackPiece {
   ports = [];
   startportnum = -1;
 
+  // FIXME: I really should have a port object.
+
   constructor(type, geometry, cursor) {
     this.type = type;
     this.geometry = geometry;
@@ -51,7 +53,24 @@ class TrackPiece {
   }
 
 
-  // Connect a new piece to this piece's active port
+  // Disconnect this piece from another piece
+  disconnectPort(portnum) {
+    const x = this.ports[portnum].x;
+    const y = this.ports[portnum].y;
+    console.log("Disconnecting piece " + this.ports[portnum].connectedpiece);
+
+    // Find and disconnect the port on the other piece
+    const otherportnum = this.ports[portnum].connectedpiece.getPortAt(x, y);
+    console.log("Disconnecting other port " + otherportnum);
+    this.ports[portnum].connectedpiece.ports[otherportnum].connectedpiece = undefined;
+
+    // Disconnect the port on this piece
+    this.ports[portnum].connectedpiece = undefined;
+  }
+
+
+  // FIXME: should this be called "connectPort"?
+  // Connect a new piece to the given port on this piece
   connectPiece(portnum, newpiece, newpieceportnum) {
     this.ports[portnum].connectedpiece = newpiece;
     newpiece.ports[newpieceportnum].connectedpiece = this;
@@ -82,12 +101,12 @@ class TrackPiece {
 
   getPortAt(x, y) {
     // console.log("Getting port at "  + x + "," + y);
-    const precision = 0.000001;
+    const tolerance = 0.5;
 
     for (const portnum in this.ports){
       if (
-        (Math.abs(this.ports[portnum].x - x) <= precision) && 
-        (Math.abs(this.ports[portnum].y - y) <= precision)
+        (Math.abs(this.ports[portnum].x - x) <= tolerance) && 
+        (Math.abs(this.ports[portnum].y - y) <= tolerance)
       ) {
         // console.log("Found a port! " + portnum);
         return portnum;
