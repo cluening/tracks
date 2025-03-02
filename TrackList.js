@@ -63,9 +63,9 @@ class TrackList {
 
     // Disconnect this piece's ports
     for (const portnum in rmpiece.ports) {
-      console.log("Disconnecting port " + portnum);
+      // console.log("Disconnecting port " + portnum);
       if (rmpiece.ports[portnum].connectedpiece != undefined) {
-        console.log("Port " + portnum + " is connected to something");
+        // console.log("Port " + portnum + " is connected to something");
         rmpiece.disconnectPort(portnum);
       }
     }

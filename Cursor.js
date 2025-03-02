@@ -5,7 +5,7 @@ class Cursor {
   activepiece = undefined;
   activeportnum = undefined;
 
-  
+
   draw(ctx) {
     let color = "black";
 
@@ -47,7 +47,24 @@ class Cursor {
         // console.log("Cursor moving up");
         this.moveAlongTrack("up");
         break;
+      case "KeyS":
+        cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+        break;
+      case "KeyR":
+        cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+        break;
+      case "KeyL":
+        cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+        break;
+      case "KeyX":
+        cursor = tracklist.add(new TrackPiece("crossing", "crossing", cursor));
+        break;
+      case "Backspace":
+        cursor = tracklist.remove(cursor.activepiece);
+        break;
     }
+
+    window.requestAnimationFrame(drawCanvas);
   }
 
   moveAlongTrack(direction) {
@@ -125,8 +142,6 @@ class Cursor {
     } else {
       // console.log("Nowhere to move");
     }
-
-    window.requestAnimationFrame(drawCanvas);
   }
 
   directionToPort(port){

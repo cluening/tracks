@@ -57,11 +57,11 @@ class TrackPiece {
   disconnectPort(portnum) {
     const x = this.ports[portnum].x;
     const y = this.ports[portnum].y;
-    console.log("Disconnecting piece " + this.ports[portnum].connectedpiece);
+    // console.log("Disconnecting piece " + this.ports[portnum].connectedpiece);
 
     // Find and disconnect the port on the other piece
     const otherportnum = this.ports[portnum].connectedpiece.getPortAt(x, y);
-    console.log("Disconnecting other port " + otherportnum);
+    // console.log("Disconnecting other port " + otherportnum);
     this.ports[portnum].connectedpiece.ports[otherportnum].connectedpiece = undefined;
 
     // Disconnect the port on this piece
