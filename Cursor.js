@@ -71,6 +71,7 @@ class Cursor {
     // console.log("Trying out moving: " + direction);
 
     if (this.activepiece == undefined) {
+      // There's no piece to start moving along!
       return;
     }
 
