@@ -4,6 +4,14 @@ class TrackList {
   // Add a new piece of track
   // FIXME: this needs to do nothing if the active port is already connected to something
   add(newpiece) {
+    // If the cursor's active port is already connected to something, do nothing
+    if (
+      cursor.activepiece != undefined 
+      && cursor.activepiece.ports[cursor.activeportnum].connectedpiece != undefined
+    ) {
+      return cursor;
+    }
+
     // Connect the new piece to the other pieces it should be connected to
     for (const portnum in newpiece.ports) {
       if ((portnum == newpiece.startportnum) && (cursor.activepiece != undefined)) {
