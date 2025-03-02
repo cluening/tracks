@@ -47,17 +47,23 @@ class TrackList {
 
 
   remove(rmpiece) {
+    if (rmpiece == undefined) {
+      // There's nothing to delete!
+      return cursor;
+    }
+
     // Prepare a new cursor to return at the end
+    // FIXME: this should actually find the port that the cursor is on and use the peer of that port
     const newcursor = new Cursor();
     newcursor.activepiece = undefined;
     newcursor.activeportnum = undefined;
-    newcursor.x = rmpiece.x;
-    newcursor.y = rmpiece.y;
-    newcursor.angle = 0;
+    newcursor.x = rmpiece.ports[rmpiece.startportnum].x;
+    newcursor.y = rmpiece.ports[rmpiece.startportnum].y;
+    newcursor.angle = (rmpiece.ports[rmpiece.startportnum].angle + 180) % 360;
 
     // Look for a connected piece to move the cursor to
     // If there's not one, the defaults above will be returned
-    // FIXME: maybe this should only update if it's the current port's peer; otherwise, the cursor can jump in a weird direction with crossing pieces
+    // FIXME: maybe this should only update the cursor if it's the current port's peer; otherwise, the cursor can jump in a weird direction with crossing pieces
     for (const portnum in rmpiece.ports) {
       if (rmpiece.ports[portnum].connectedpiece != undefined) {
         newcursor.activepiece = rmpiece.ports[portnum].connectedpiece;

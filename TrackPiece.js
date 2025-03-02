@@ -6,8 +6,6 @@ class TrackPiece {
   ports = [];
   startportnum = -1;
 
-  // FIXME: I really should have a port object.
-
   constructor(type, geometry, cursor) {
     this.type = type;
     this.geometry = geometry;
