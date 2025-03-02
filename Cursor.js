@@ -70,6 +70,10 @@ class Cursor {
   moveAlongTrack(direction) {
     // console.log("Trying out moving: " + direction);
 
+    if (this.activepiece == undefined) {
+      return;
+    }
+
     let portdirections;
     const options = [];
 
