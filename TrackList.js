@@ -88,6 +88,21 @@ class TrackList {
   }
 
 
+  // Return a piece and port near x, y, if one exists
+  getPieceAt(x, y) {
+    const tolerance = 4;  // pixels (or base geometry studs);
+
+    for (const piece of this.tracklist) {
+      const portnum = piece.getPortAt(x, y, tolerance);
+      if (portnum != undefined) {
+        return [ piece, portnum ];
+      }
+    }
+
+    return [ undefined, undefined ];
+  }
+
+
   // Draw the whole track list into the given context
   draw(ctx) {
     for (let piece of this.tracklist){

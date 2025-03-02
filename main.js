@@ -1,30 +1,30 @@
-/*
-TODO
- - Make a Cursor class
- - Handle image rotations for angles >= 90
-*/
-
 let partslibrary = Object();
 const tracklist = new TrackList();
 const partslist = [];
 let cursor = new Cursor();
+
+function onClick(event) {
+  cursor = cursor.handleClick(event.offsetX, event.offsetY);
+  window.requestAnimationFrame(drawCanvas);
+}
 
 function onKeyDown(event) {
   // Prevent the window from scrolling on arrow presses
   if (["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(event.code)) {
     event.preventDefault();
   }
-  //console.log(event.code);
+  // console.log(event.code);
   cursor.handleKeyPress(event.code);
+  window.requestAnimationFrame(drawCanvas);
 }
 
 async function onLoad() {
   const canvas = document.getElementById("td");
-  const ctx = canvas.getContext("2d");
 
   console.log("Loading!");
 
   window.addEventListener("keydown", onKeyDown);
+  canvas.addEventListener("click", onClick);
 
   partslibrary = await loadPartsLibrary();
   //console.log(partslibrary);
@@ -142,22 +142,22 @@ async function onLoad() {
   // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
   // cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
 
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
-  cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+  // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
 
   // cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
   // cursor = tracklist.add(new TrackPiece("curve", "right", cursor));

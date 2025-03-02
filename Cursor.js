@@ -29,6 +29,29 @@ class Cursor {
   }
 
 
+  handleClick(x, y) {
+    const newcursor = new Cursor();
+
+    const [targetpiece, targetportnum] = tracklist.getPieceAt(x, y);
+
+    if (targetpiece != undefined) {
+      newcursor.x = targetpiece.ports[targetportnum].x;
+      newcursor.y = targetpiece.ports[targetportnum].y;
+      newcursor.angle = targetpiece.ports[targetportnum].angle;
+      newcursor.activepiece = targetpiece;
+      newcursor.activeportnum = targetportnum;
+    } else {
+      newcursor.x = x;
+      newcursor.y = y;
+      newcursor.angle = 0;
+      newcursor.activepiece = undefined;
+      newcursor.activeportnum = undefined;
+    }
+
+    return newcursor;
+  }
+
+
   handleKeyPress(code) {
     switch(code) {
       case "ArrowLeft":
@@ -64,7 +87,6 @@ class Cursor {
         break;
     }
 
-    window.requestAnimationFrame(drawCanvas);
   }
 
   moveAlongTrack(direction) {

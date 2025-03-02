@@ -97,9 +97,11 @@ class TrackPiece {
     }
   }
 
-  getPortAt(x, y) {
+
+  // Return this piece's port at x,y within a tolerance of tolerance pixels, if it exists
+  getPortAt(x, y, tolerance=0.5) {
     // console.log("Getting port at "  + x + "," + y);
-    const tolerance = 0.5;
+    //const tolerance = 5;  // pixels (or base geometry studs)
 
     for (const portnum in this.ports){
       if (
