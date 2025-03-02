@@ -19,8 +19,8 @@ class TrackPiece {
     // Find the absolute locations of all of this part's ports based on the geometry being used
     for (const portnum in partslibrary[this.type].geometry[this.geometry].ports) {
       const port = partslibrary[this.type].geometry[this.geometry].ports[portnum];
-      const newport = Object();
-      const newportprime = Object();
+      const newport = new TrackPort();
+      const newportprime = new TrackPort();
 
       // First find this port's location relative to the geometry's start port
       newport.x = port.x - partslibrary[this.type].geometry[this.geometry].ports[this.startportnum].x;
