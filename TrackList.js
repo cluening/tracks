@@ -2,7 +2,6 @@ class TrackList {
   tracklist = [];
 
   // Add a new piece of track
-  // FIXME: this needs to do nothing if the active port is already connected to something
   add(newpiece) {
     // If the cursor's active port is already connected to something, do nothing
     if (

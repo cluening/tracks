@@ -160,7 +160,7 @@ class Cursor {
     // If there's a port on another piece connected to this one, find that port's peer
     // console.log("The connected port's peer:")
     if (activeport.connectedpiece != undefined) {
-      let connectedportnum = activeport.connectedpiece.getPortAt(this.x, this.y); // FIXME: maybe I should have a "connectedpiece" and a "connectedport" so I don't need to go through this effort, which is potentially not going to work reliably with floating point numbers
+      let connectedportnum = activeport.connectedpiece.getPortAt(this.x, this.y);
       let connectedportpeer = activeport.connectedpiece.ports[connectedportnum].peer;
 
       // console.log(activeport.connectedpiece);
