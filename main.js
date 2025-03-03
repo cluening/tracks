@@ -9,14 +9,34 @@ function onClick(event) {
 }
 
 function onKeyDown(event) {
+  // console.log(event.code);
   // Prevent the window from scrolling on arrow presses
-  if (["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(event.code)) {
+  if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.code)) {
     event.preventDefault();
   }
-  // console.log(event.code);
-  cursor.handleKeyPress(event.code);
+
+  if ([ "AltLeft", "AltRight",
+        "ControlLeft", "ControlRight",
+        "MetaLeft", "MetaRight",
+        "ShiftLeft", "ShiftRight" ].includes(event.code)) {
+    cursor.activateModifierKey(event.code);
+  } else {
+    cursor.handleKeyPress(event.code);
+  }
+
   window.requestAnimationFrame(drawCanvas);
 }
+
+
+function onKeyUp(event) {
+  if ([ "AltLeft", "AltRight",
+        "ControlLeft", "ControlRight",
+        "MetaLeft", "MetaRight",
+        "ShiftLeft", "ShiftRight" ].includes(event.code)) {
+    cursor.deactivateModifierKey(event.code);
+  }
+}
+
 
 async function onLoad() {
   const canvas = document.getElementById("td");
@@ -24,6 +44,7 @@ async function onLoad() {
   console.log("Loading!");
 
   window.addEventListener("keydown", onKeyDown);
+  window.addEventListener("keyup", onKeyUp);
   canvas.addEventListener("click", onClick);
 
   partslibrary = await loadPartsLibrary();

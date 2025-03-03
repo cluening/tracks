@@ -36,11 +36,13 @@ class TrackList {
     // Prepare a new cursor object to return
     const newcursor = new Cursor();
     const newpieceportnum = newpiece.getPortAt(cursor.x, cursor.y);
+
     newcursor.activepiece = newpiece;
     newcursor.activeportnum = newcursor.activepiece.ports[newpieceportnum].peer;
     newcursor.x = newcursor.activepiece.ports[newcursor.activeportnum].x;
     newcursor.y = newcursor.activepiece.ports[newcursor.activeportnum].y;
     newcursor.angle = (newcursor.activepiece.ports[newcursor.activeportnum].angle) % 360;
+    newcursor.activemodifierkeys = cursor.activemodifierkeys;
 
     return(newcursor);
   }
@@ -58,6 +60,7 @@ class TrackList {
 
     newcursor.x = rmpiece.ports[activeportpeernum].x
     newcursor.y = rmpiece.ports[activeportpeernum].y
+    newcursor.activemodifierkeys = cursor.activemodifierkeys;
 
     // If this port's peer is connected to another piece, make that piece active
     // Otherwise, leave the cursor floating at the peer port's location
