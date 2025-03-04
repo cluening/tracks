@@ -19,7 +19,8 @@ class TrackPiece {
 
     // Get the angles of the zeroth port and start port for this piece at its
     // current angle
-    let baseimage = partslibrary[type].images[(this.angle % 90).toString()];
+    console.log("Angle: " + this.angle % 90);
+    let baseimage = partslibrary[type].images[((this.angle + 360) % 90).toString()];
     let imagezeroportangle = baseimage.ports[0].angle;
     let imagestartportangle = baseimage.ports[this.startportnum].angle;
 
