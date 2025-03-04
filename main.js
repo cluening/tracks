@@ -115,11 +115,11 @@ async function onLoad() {
   // newpiece.drawPorts(ctx);
 
 
-  cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
   // cursor = tracklist.add(new TrackPiece("32087", "crossing", cursor));
-  cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
-  cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
+  // cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
   // cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
   // cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
   // cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
@@ -175,7 +175,7 @@ async function loadImage(imagepath) {
 
 
 async function loadPartsLibrary() {
-  const url = "partslibrary.json";
+  const url = "partslibrary/parts.json";
   let partslibrary;
 
   try {
@@ -192,7 +192,7 @@ async function loadPartsLibrary() {
       //console.log("Partname: " + partname);
       //partslibrary[partname]["images"] = await loadImages(partslibrary[partname].imagepaths);
       for (const angle in partslibrary[partname].images) {
-        partslibrary[partname].images[angle].image = await loadImage(partslibrary[partname].images[angle].path)
+        partslibrary[partname].images[angle].image = await loadImage("partslibrary/" + partslibrary[partname].images[angle].path)
       }
     }
 
