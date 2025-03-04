@@ -1,6 +1,29 @@
 # Note: this file is used to generate partslibrary.json
+# yq -p yaml -o json partslibrary.yaml > partslibrary.json
 
-crossing:
+32087:
+  name: "crossing"
+  images:
+    "0":
+      scale: 2
+      path: graphics/32087/0.png
+      ports:
+       - { x: 0, y: 16, angle: 0 }
+    "22.5":
+      scale: 2
+      path: graphics/32087/22-5.png
+      ports:
+       - { x: 3, y: 12, angle: 22.5 }
+    "45":
+      scale: 2
+      path: graphics/32087/45.png
+      ports:
+       - { x: 5, y: 6, angle: 45 }
+    "67.5":
+      scale: 2
+      path: graphics/32087/67-5.png
+      ports:
+       - { x: 11, y: 3, angle: 67.5 }
   geometry:
     crossing:
       startportnum: 0
@@ -10,60 +33,66 @@ crossing:
        -  { x: 8, y: -8, angle: -90, peer: 3 }
        -  { x: 8, y: 8, angle: 90, peer: 2 }
 
-curve:
+2867:
+  name: "curve"
   images:
     "0":
-     path: graphics/curve/0.png
-     ports:
+      scale: 2
+      path: graphics/2867/0.png
+      ports:
        - { x: 0, y: 8, angle: 0 }
        - { x: 31, y: 14, angle: 202.5 }  # Looks like "angle" here is looking into the port, with zero looking directly west to east and degrees counting up clockwise
     "22.5":
-      path: graphics/curve/22-5.png
+      scale: 2
+      path: graphics/2867/22-5.png
       ports:
        - { x: 3, y: 7, angle: 22.5 }
        - { x: 29, y: 24, angle: 225 }
     "45":
-      path: graphics/curve/45.png
+      scale: 2
+      path: graphics/2867/45.png
       ports:
        - { x: 6, y: 5, angle: 45 }
        - { x: 23, y: 31, angle: 247.5 }
     "67.5":
-      path: graphics/curve/67-5.png
+      scale: 2
+      path: graphics/2867/67-5.png
       ports:
        - { x: 7, y: 3, angle: 67.5 }
        - { x: 13, y: 34, angle: 270 }
   geometry:
     left:
       startportnum: 1
-      imagerotation: 180
-      imagemirror: -1
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: -15.3073373, y: 3.0448187, angle: 22.5, peer: 0 }
     right:
       startportnum: 0
-      imagerotation: 0
-      imagemirror: 1
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: 15.3073373, y: 3.0448187, angle: 22.5, peer: 0 }
 
-straight:
+2865:
+  name: "straight"
   images:
     "0":
-      path: graphics/straight/0.png
+      scale: 2
+      path: graphics/2865/0.png
       ports:
        - { x: 0, y: 8, angle: 0 }
     "22.5":
-      path: graphics/straight/22-5.png
+      scale: 2
+      path: graphics/2865/22-5.png
       ports:
        - { x: 3, y: 7, angle: 22.5 }
     "45":
-      path: graphics/straight/45.png
+      scale: 2
+      path: graphics/2865/45.png
       ports:
        - { x: 6, y: 5, angle: 45 }
     "67.5":
-      path: graphics/straight/67-5.png
+      scale: 2
+      path: graphics/2865/67-5.png
       ports:
        - { x: 6, y: 3, angle: 67.5 }
   geometry:
@@ -75,7 +104,37 @@ straight:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: 16, y: 0, angle: 0, peer: 0 }
 
-leftpoint:
+2861:
+  name: "left point"
+  images:
+    "0":
+      scale: 2
+      path: graphics/2861/0.png
+      ports:
+       - { x: 0, y: 33, angle: 0 }
+       - { x: 64, y: 33, angle: 180 }
+       - { x: 65, y: 7, angle: 157.5 }
+    "22.5":
+      scale: 2
+      path: graphics/2861/22-5.png
+      ports:
+       - { x: 3, y: 17, angle: 22.5 }
+       - { x: 63, y: 43, angle: 202.5 }
+       - { x: 74, y: 18, angle: 180 }
+    "45":
+      scale: 2
+      path: graphics/2861/45.png
+      ports:
+       - { x: 6, y: 11, angle: 45 }
+       - { x: 50, y: 57, angle: 225 }
+       - { x: 71, y: 39, angle: 202.5 }
+    "67.5":
+      scale: 2
+      path: graphics/2861/67-5.png
+      ports:
+       - { x: 7, y: 4, angle: 67.5 }
+       - { x: 31, y: 64, angle: 247.5 }
+       - { x: 55, y: 57, angle: 225 }
   geometry:
     leftsplit:
       startportnum: 0
@@ -96,7 +155,37 @@ leftpoint:
        - { x: -32, y: 0, angle: 0, peer: 0 }
        - { x: -32.6926627, y: 12.9551813, angle: -22.5, peer: 0 }
 
-rightpoint:
+2859:
+  name: "right point"
+  images:
+    "0":
+      scale: 2
+      path: graphics/2859/0.png
+      ports:
+       - { x: 0, y: 8, angle: 0 }
+       - { x: 64, y: 8, angle: 180 }
+       - { x: 65, y: 34, angle: 202.5 }
+    "22.5":
+      scale: 2
+      path: graphics/2859/22-5.png
+      ports:
+       - { x: 4, y: 7, angle: 22.5 }
+       - { x: 64, y: 31, angle: 202.5 }
+       - { x: 56, y: 56, angle: 225 }
+    "45":
+      scale: 2
+      path: graphics/2859/45.png
+      ports:
+       - { x: 12, y: 5, angle: 45 }
+       - { x: 56, y: 51, angle: 225 }
+       - { x: 39, y: 71, angle: 247.5 }
+    "67.5":
+      scale: 2
+      path: graphics/2859/67-5.png
+      ports:
+       - { x: 17, y: 3, angle: 67.5 }
+       - { x: 42, y: 63, angle: 247.5 }
+       - { x: 18, y: 74, angle: 270 }
   geometry:
     rightsplit:
       startportnum: 0

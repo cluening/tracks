@@ -5,6 +5,8 @@ class TrackPiece {
   angle = 0;
   ports = [];
   startportnum = -1;
+  image;
+  imagebaseangle;
 
   constructor(type, geometry, cursor) {
     this.type = type;
@@ -13,6 +15,23 @@ class TrackPiece {
     this.location.y = cursor.y;
     this.angle = cursor.angle;
     this.startportnum = partslibrary[this.type].geometry[this.geometry].startportnum;
+    this.image = partslibrary[type].images[(this.angle % 90).toString()];
+
+    // Get the angles of the zeroth port and start port for this piece at its
+    // current angle
+    let baseimage = partslibrary[type].images[(this.angle % 90).toString()];
+    let imagezeroportangle = baseimage.ports[0].angle;
+    let imagestartportangle = baseimage.ports[this.startportnum].angle;
+
+    // Calculate the angle of the image that should be used for this piece,
+    // and then set this piece's image to that one
+    let imageangle = ((imagezeroportangle - imagestartportangle + this.angle) + 360) % 90;
+    this.image = partslibrary[type].images[imageangle];
+
+    // Calculate the angle that the image should be drawn at.  This is always
+    // a multiple of 90
+    let imagegeometryangle = ((imagezeroportangle - imagestartportangle + this.angle) + 360) % 360
+    this.imagebaseangle = Math.trunc(imagegeometryangle / 90) * 90;
 
     // Find the absolute locations of all of this part's ports based on the geometry being used
     for (const portnum in partslibrary[this.type].geometry[this.geometry].ports) {
@@ -31,6 +50,10 @@ class TrackPiece {
 
       newport.x = newportprime.x;
       newport.y = newportprime.y;
+
+      // Scale the port's location by the image scaling factor
+      newport.x = newport.x * 2;
+      newport.y = newport.y * 2;
 
       // Finally, move it relative to the start port's location
       newport.x += this.location.x;
@@ -72,6 +95,38 @@ class TrackPiece {
   connectPiece(portnum, newpiece, newpieceportnum) {
     this.ports[portnum].connectedpiece = newpiece;
     newpiece.ports[newpieceportnum].connectedpiece = this;
+  }
+
+
+  // Draw this piece in its correct spot
+  draw(ctx) {
+    let x = this.location.x;
+    let y = this.location.y;
+
+    //let baseangle = Math.trunc(this.angle / 90) * 90;
+    //let baseangle = Math.trunc(this.imagegeometryangle / 90) * 90;
+
+    ctx.save();
+
+    // Since rotate() rotates around grid lines and pixels are draw into grid squares, rotating
+    // a pixel at 0,0 180 degrees around 0,0 effectively puts that pixel at -1,-1.  These lines shift the
+    // location as needed to compensate for that.
+    if (this.imagebaseangle == 90) { x += 1; }
+    if (this.imagebaseangle == 180) { x += 1; y += 1; }
+    if (this.imagebaseangle == 270) { y += 1; }
+
+    // Compensation done!  Time to rotate around this part's origin port
+    ctx.translate(Math.round(x), Math.round(y));
+    ctx.rotate(this.imagebaseangle * Math.PI / 180);
+    ctx.translate(Math.round(x) * -1, Math.round(y) * -1);
+
+    ctx.drawImage(
+      this.image.image,
+      Math.round(x - this.image.ports[this.startportnum].x),
+      Math.round(y - this.image.ports[this.startportnum].y)
+    );
+
+    ctx.restore();
   }
 
 

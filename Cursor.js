@@ -8,7 +8,7 @@ class Cursor {
 
 
   draw(ctx) {
-    let color = "black";
+    let color = "blue";
 
     ctx.save();
 
@@ -20,9 +20,9 @@ class Cursor {
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
     ctx.fillRect(
-      Math.round(this.x - 1),
-      Math.round(this.y - 5),
-      3, 11
+      Math.round(this.x - 2),
+      Math.round(this.y - 9),
+      5, 19
     );
     ctx.stroke();
 
@@ -94,32 +94,32 @@ class Cursor {
         this.moveAlongTrack("up");
         break;
       case "KeyS":
-        cursor = tracklist.add(new TrackPiece("straight", "straight", cursor));
+        cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
         break;
       case "KeyR":
         if (this.activemodifierkeys.has("Alt")) {
-          cursor = tracklist.add(new TrackPiece("leftpoint", "rightjoin", cursor));
+          cursor = tracklist.add(new TrackPiece("2861", "rightjoin", cursor));
         } else if (this.activemodifierkeys.has("Control")) {
-          cursor = tracklist.add(new TrackPiece("leftpoint", "rightmerge", cursor));
+          cursor = tracklist.add(new TrackPiece("2861", "rightmerge", cursor));
         } else if (this.activemodifierkeys.has("Shift")) {
-          cursor = tracklist.add(new TrackPiece("rightpoint", "rightsplit", cursor));
+          cursor = tracklist.add(new TrackPiece("2859", "rightsplit", cursor));
         } else {
-          cursor = tracklist.add(new TrackPiece("curve", "right", cursor));
+          cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
         }
         break;
       case "KeyL":
         if (this.activemodifierkeys.has("Alt")) {
-          cursor = tracklist.add(new TrackPiece("rightpoint", "leftjoin", cursor));
+          cursor = tracklist.add(new TrackPiece("2859", "leftjoin", cursor));
         } else if (this.activemodifierkeys.has("Control")) {
-          cursor = tracklist.add(new TrackPiece("rightpoint", "leftmerge", cursor));
+          cursor = tracklist.add(new TrackPiece("2859", "leftmerge", cursor));
         } else if (this.activemodifierkeys.has("Shift")) {
-          cursor = tracklist.add(new TrackPiece("leftpoint", "leftsplit", cursor));
+          cursor = tracklist.add(new TrackPiece("2861", "leftsplit", cursor));
         } else {
-          cursor = tracklist.add(new TrackPiece("curve", "left", cursor));
+          cursor = tracklist.add(new TrackPiece("2867", "left", cursor));
         }
         break;
       case "KeyX":
-        cursor = tracklist.add(new TrackPiece("crossing", "crossing", cursor));
+        cursor = tracklist.add(new TrackPiece("32087", "crossing", cursor));
         break;
       case "Backspace":
         cursor = tracklist.remove(cursor.activepiece);
