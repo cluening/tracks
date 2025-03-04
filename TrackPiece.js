@@ -155,7 +155,7 @@ class TrackPiece {
 
 
   // Return this piece's port at x,y within a tolerance of tolerance pixels, if it exists
-  getPortAt(x, y, tolerance=0.5) {
+  getPortAt(x, y, tolerance=1.0) {
     // console.log("Getting port at "  + x + "," + y);
     //const tolerance = 5;  // pixels (or base geometry studs)
 
