@@ -10,31 +10,26 @@ function onClick(event) {
 
 function onKeyDown(event) {
   // console.log(event.code);
+  let modifier;
+
   // Prevent the window from scrolling on arrow presses
   if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.code)) {
     event.preventDefault();
   }
 
-  if ([ "AltLeft", "AltRight",
-        "ControlLeft", "ControlRight",
-        "MetaLeft", "MetaRight",
-        "ShiftLeft", "ShiftRight" ].includes(event.code)) {
-    cursor.activateModifierKey(event.code);
-  } else {
-    cursor.handleKeyPress(event.code);
+  // Record any modifier keys being held.  I'm only going to care about one modifier at a time.
+  if (event.altKey) {
+    modifier = "Alt";
+  } else if (event.ctrlKey) {
+    modifier = "Control";
+  } else if (event.metaKey) {
+    modifier = "Meta";
+  } else if (event.shiftKey) {
+    modifier = "Shift";
   }
+  cursor.handleKeyPress(event.code, modifier);
 
   window.requestAnimationFrame(drawCanvas);
-}
-
-
-function onKeyUp(event) {
-  if ([ "AltLeft", "AltRight",
-        "ControlLeft", "ControlRight",
-        "MetaLeft", "MetaRight",
-        "ShiftLeft", "ShiftRight" ].includes(event.code)) {
-    cursor.deactivateModifierKey(event.code);
-  }
 }
 
 
@@ -44,7 +39,6 @@ async function onLoad() {
   console.log("Loading!");
 
   window.addEventListener("keydown", onKeyDown);
-  window.addEventListener("keyup", onKeyUp);
   canvas.addEventListener("click", onClick);
 
   partslibrary = await loadPartsLibrary();

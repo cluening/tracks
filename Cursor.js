@@ -53,33 +53,7 @@ class Cursor {
   }
 
 
-  activateModifierKey(code) {
-    if (["AltLeft", "AltRight"].includes(code)) {
-      this.activemodifierkeys.add("Alt");
-    } else if (["ControlLeft", "ControlRight"].includes(code)) {
-      this.activemodifierkeys.add("Control");
-    } else if (["MetaLeft", "MetaRight"].includes(code)) {
-      this.activemodifierkeys.add("Meta");
-    } else if (["ShiftLeft", "ShiftRight"].includes(code)) {
-      this.activemodifierkeys.add("Shift");
-    }
-  }
-
-
-  deactivateModifierKey(code) {
-    if (["AltLeft", "AltRight"].includes(code)) {
-      this.activemodifierkeys.delete("Alt");
-    } else if (["ControlLeft", "ControlRight"].includes(code)) {
-      this.activemodifierkeys.delete("Control");
-    } else if (["MetaLeft", "MetaRight"].includes(code)) {
-      this.activemodifierkeys.delete("Meta");
-    } else if (["ShiftLeft", "ShiftRight"].includes(code)) {
-      this.activemodifierkeys.delete("Shift");
-    }
-  }
-
-
-  handleKeyPress(code) {
+  handleKeyPress(code, modifier) {
     switch(code) {
       case "ArrowLeft":
         this.moveAlongTrack("left");
@@ -97,22 +71,26 @@ class Cursor {
         cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
         break;
       case "KeyR":
-        if (this.activemodifierkeys.has("Alt")) {
+        if (modifier == "Alt") {
           cursor = tracklist.add(new TrackPiece("2861", "rightjoin", cursor));
-        } else if (this.activemodifierkeys.has("Control")) {
+        } else if (modifier == "Control") {
           cursor = tracklist.add(new TrackPiece("2861", "rightmerge", cursor));
-        } else if (this.activemodifierkeys.has("Shift")) {
+        } else if (modifier == "Meta") {
+          return;
+        } else if (modifier == "Shift") {
           cursor = tracklist.add(new TrackPiece("2859", "rightsplit", cursor));
         } else {
           cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
         }
         break;
       case "KeyL":
-        if (this.activemodifierkeys.has("Alt")) {
+        if (modifier == "Alt") {
           cursor = tracklist.add(new TrackPiece("2859", "leftjoin", cursor));
-        } else if (this.activemodifierkeys.has("Control")) {
+        } else if (modifier == "Control") {
           cursor = tracklist.add(new TrackPiece("2859", "leftmerge", cursor));
-        } else if (this.activemodifierkeys.has("Shift")) {
+        } else if (modifier == "Meta") {
+          return;
+        } else if (modifier == "Shift") {
           cursor = tracklist.add(new TrackPiece("2861", "leftsplit", cursor));
         } else {
           cursor = tracklist.add(new TrackPiece("2867", "left", cursor));
