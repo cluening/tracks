@@ -34,7 +34,10 @@ function onKeyDown(event) {
 
 
 async function onLoad() {
-  const canvas = document.getElementById("td");
+  const canvas = document.getElementById("layout");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
   console.log("Loading!");
 
@@ -199,7 +202,7 @@ async function loadPartsLibrary() {
 
 
 function drawCanvas(time) {
-  const canvas = document.getElementById("td");
+  const canvas = document.getElementById("layout");
   const ctx = canvas.getContext("2d");
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
