@@ -54,6 +54,8 @@ class Cursor {
 
 
   handleKeyPress(code, modifier) {
+    let newcursor = this;
+
     switch(code) {
       case "ArrowLeft":
         this.moveAlongTrack("left");
@@ -68,42 +70,43 @@ class Cursor {
         this.moveAlongTrack("up");
         break;
       case "KeyS":
-        cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
+        newcursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
         break;
       case "KeyR":
         if (modifier == "Alt") {
-          cursor = tracklist.add(new TrackPiece("2861", "rightjoin", cursor));
+          newcursor = tracklist.add(new TrackPiece("2861", "rightjoin", cursor));
         } else if (modifier == "Control") {
-          cursor = tracklist.add(new TrackPiece("2861", "rightmerge", cursor));
+          newcursor = tracklist.add(new TrackPiece("2861", "rightmerge", cursor));
         } else if (modifier == "Meta") {
-          return;
+          // Do nothing
         } else if (modifier == "Shift") {
-          cursor = tracklist.add(new TrackPiece("2859", "rightsplit", cursor));
+          newcursor = tracklist.add(new TrackPiece("2859", "rightsplit", cursor));
         } else {
-          cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
+          newcursor = tracklist.add(new TrackPiece("2867", "right", cursor));
         }
         break;
       case "KeyL":
         if (modifier == "Alt") {
-          cursor = tracklist.add(new TrackPiece("2859", "leftjoin", cursor));
+          newcursor = tracklist.add(new TrackPiece("2859", "leftjoin", cursor));
         } else if (modifier == "Control") {
-          cursor = tracklist.add(new TrackPiece("2859", "leftmerge", cursor));
+          newcursor = tracklist.add(new TrackPiece("2859", "leftmerge", cursor));
         } else if (modifier == "Meta") {
-          return;
+          // Do nothing
         } else if (modifier == "Shift") {
-          cursor = tracklist.add(new TrackPiece("2861", "leftsplit", cursor));
+          newcursor = tracklist.add(new TrackPiece("2861", "leftsplit", cursor));
         } else {
-          cursor = tracklist.add(new TrackPiece("2867", "left", cursor));
+          newcursor = tracklist.add(new TrackPiece("2867", "left", cursor));
         }
         break;
       case "KeyX":
-        cursor = tracklist.add(new TrackPiece("32087", "crossing", cursor));
+        newcursor = tracklist.add(new TrackPiece("32087", "crossing", cursor));
         break;
       case "Backspace":
-        cursor = tracklist.remove(cursor.activepiece);
+        newcursor = tracklist.remove(cursor.activepiece);
         break;
     }
 
+    return newcursor;
   }
 
   moveAlongTrack(direction) {

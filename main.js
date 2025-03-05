@@ -27,7 +27,7 @@ function onKeyDown(event) {
   } else if (event.shiftKey) {
     modifier = "Shift";
   }
-  cursor.handleKeyPress(event.code, modifier);
+  cursor = cursor.handleKeyPress(event.code, modifier);
 
   window.requestAnimationFrame(drawCanvas);
 }
