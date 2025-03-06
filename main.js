@@ -29,6 +29,65 @@ function onKeyDown(event) {
   }
   cursor = cursor.handleKeyPress(event.code, modifier);
 
+  const canvas = document.getElementById("layout");
+  const layoutpadding = 32;
+
+  // Expand and shift the canvas down or to the right if the layout grows
+  // beyond the top or left bounds
+  let xadd = 0;
+  let yadd = 0;
+  if (cursor.x < 0 + layoutpadding) {
+    xadd = (0 - cursor.x) + layoutpadding;
+  }
+  if (cursor.y < 0 + layoutpadding) {
+    yadd = (0 - cursor.y) + layoutpadding;
+  }
+
+  cursor.x += xadd;
+  cursor.y += yadd;
+  if (xadd != 0 || yadd != 0) {
+    for (piece of tracklist.tracklist) {
+      piece.location.x += xadd;
+      piece.location.y += yadd;
+      for (port of piece.ports) {
+        port.x += xadd;
+        port.y += yadd;
+      }
+    }
+  }
+
+  canvas.width += xadd;
+  canvas.height += yadd;
+
+  // Extend the canvas down or to the right if the layout grows beyond those
+  // bounds
+  if (cursor.x > canvas.width - layoutpadding) {
+    canvas.width = cursor.x + layoutpadding;
+  }
+  if (cursor.y > canvas.height - layoutpadding) {
+    canvas.height = cursor.y + layoutpadding;
+  }
+
+  // If the cursor is off the screen, scroll it back into view
+  viewportx0 = window.scrollX;
+  viewporty0 = window.scrollY;
+  viewportx1 = window.innerWidth + window.scrollX;
+  viewporty1 = window.innerHeight + window.scrollY;
+
+  if (cursor.x < viewportx0 + layoutpadding) {
+    window.scrollTo(cursor.x - layoutpadding, window.scrollY);
+  }
+  if (cursor.y < viewporty0 + layoutpadding) {
+    window.scrollTo(window.scrollX, cursor.y - layoutpadding);
+  }
+  if (cursor.x > viewportx1 - layoutpadding) {
+    window.scrollTo(cursor.x + layoutpadding, window.scrollY);
+  }
+  if (cursor.y > viewporty1 - layoutpadding) {
+    window.scrollTo(window.scrollX, cursor.y + layoutpadding);
+  }
+
+  // All done!  Time to request that the canvas be redrawn
   window.requestAnimationFrame(drawCanvas);
 }
 
