@@ -9,6 +9,15 @@
   </head>
 
   <body onload="onLoad()">
-    <canvas id="layout" width=640 height=480></canvas>
+    <div class="toolbarwrapper">
+      <button type="button">Right</button>
+      <button type="button">Left</button>
+    </div>
+    <div class="layoutwrapper" id="layoutwrapper">
+      <canvas class="layout" id="layout" width="320" height="240"></canvas>
+    </div>
+    <div class="statusbarwrapper">
+      Pieces: <span id="piececount">0</span>
+    </div>
   </body>
 </html>

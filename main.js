@@ -8,6 +8,8 @@ function onClick(event) {
   window.requestAnimationFrame(drawCanvas);
 }
 
+
+// FIXME: this currently makes it all the way to the end on _any_ keypress, meaning, for example, it will scroll the cursor back into view if you just press and release the shift key.  It needs some way to tell if the key that was pressed actually did anything.
 function onKeyDown(event) {
   // console.log(event.code);
   let modifier;
@@ -30,6 +32,7 @@ function onKeyDown(event) {
   cursor = cursor.handleKeyPress(event.code, modifier);
 
   const canvas = document.getElementById("layout");
+  const canvaswrapper = document.getElementById("layoutwrapper");
   const layoutpadding = 32;
 
   // Expand and shift the canvas down or to the right if the layout grows
@@ -69,22 +72,22 @@ function onKeyDown(event) {
   }
 
   // If the cursor is off the screen, scroll it back into view
-  viewportx0 = window.scrollX;
-  viewporty0 = window.scrollY;
-  viewportx1 = window.innerWidth + window.scrollX;
-  viewporty1 = window.innerHeight + window.scrollY;
+  viewportx0 = canvaswrapper.scrollLeft;
+  viewporty0 = canvaswrapper.scrollTop;
+  viewportx1 = canvaswrapper.clientWidth + canvaswrapper.scrollLeft;
+  viewporty1 = canvaswrapper.clientHeight + canvaswrapper.scrollTop;
 
   if (cursor.x < viewportx0 + layoutpadding) {
-    window.scrollTo(cursor.x - layoutpadding, window.scrollY);
+    canvaswrapper.scrollBy(cursor.x - (viewportx0 + layoutpadding), 0);
   }
   if (cursor.y < viewporty0 + layoutpadding) {
-    window.scrollTo(window.scrollX, cursor.y - layoutpadding);
+    canvaswrapper.scrollBy(0, cursor.y - (viewporty0 + layoutpadding));
   }
   if (cursor.x > viewportx1 - layoutpadding) {
-    window.scrollTo(cursor.x + layoutpadding, window.scrollY);
+    canvaswrapper.scrollBy(cursor.x - (viewportx1 - layoutpadding), 0);
   }
   if (cursor.y > viewporty1 - layoutpadding) {
-    window.scrollTo(window.scrollX, cursor.y + layoutpadding);
+    canvaswrapper.scrollBy(0, cursor.y - (viewporty1 - layoutpadding));
   }
 
   // All done!  Time to request that the canvas be redrawn
@@ -94,9 +97,10 @@ function onKeyDown(event) {
 
 async function onLoad() {
   const canvas = document.getElementById("layout");
+  const canvaswrapper = document.getElementById("layoutwrapper");
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = canvaswrapper.clientWidth;
+  canvas.height = canvaswrapper.clientHeight;
 
   console.log("Loading!");
 

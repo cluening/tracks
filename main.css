@@ -2,10 +2,24 @@ body {
   border: 0px;
   margin: 0px;
   padding: 0px;
+  height: 100%;
 }
 
 canvas.layout {
   border: 0px;
   margin: 0px;
   padding: 0px;
+}
+
+div.toolbarwrapper {
+  height: 30px;
+}
+
+div.statusbarwrapper {
+  height: 25px;
+}
+
+div.layoutwrapper {
+  height: calc(100% - (30px + 25px));
+  overflow: scroll;
 }
