@@ -295,6 +295,7 @@ function buildToolbar() {
       newbutton.innerText = part + ": " + geometry;
       newbutton.setAttribute("class", "toolbarbutton");
       newbutton.setAttribute("id", "button-" + part + "-" + geometry);
+      newbutton.style.order = partslibrary[part].geometry[geometry].buttonindex;
       newbutton.setAttribute("data-part", part);
       newbutton.setAttribute("data-geometry", geometry);
       newbutton.addEventListener("click", onButtonClick);
