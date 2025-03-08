@@ -26,6 +26,8 @@
        - { x: 11, y: 3, angle: 67.5 }
   geometry:
     crossing:
+      keypress: "X"
+      keymodifier: "None"
       startportnum: 0
       ports:
        -  { x: 0, y: 0, angle: 180, peer: 1 }
@@ -62,11 +64,15 @@
        - { x: 13, y: 34, angle: 270 }
   geometry:
     left:
+      keypress: "L"
+      keymodifier: "None"
       startportnum: 1
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: -15.3073373, y: 3.0448187, angle: 22.5, peer: 0 }
     right:
+      keypress: "R"
+      keymodifier: "None"
       startportnum: 0
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -97,9 +103,9 @@
        - { x: 6, y: 3, angle: 67.5 }
   geometry:
     straight:
+      keypress: "S"
+      keymodifier: "None"
       startportnum: 0
-      imagerotation: 0
-      imagemirror: 1
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: 16, y: 0, angle: 0, peer: 0 }
@@ -137,18 +143,24 @@
        - { x: 55, y: 57, angle: 225 }
   geometry:
     leftsplit:
+      keypress: "L"
+      keymodifier: "Shift"
       startportnum: 0
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: 32, y: 0, angle: 0, peer: 0 }
        - { x: 32.6926627, y: -12.9551813, angle: -22.5, peer: 0 }
     rightjoin:
+      keypress: "R"
+      keymodifier: "Alt"
       startportnum: 2
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -29.56414504, y: -12.24586984, angle: 0, peer: 0 }
        - { x: -35.16181518, y: -0.54191353, angle: -22.5, peer: 0 }
     rightmerge:
+      keypress: "R"
+      keymodifier: "Control"
       startportnum: 1
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -188,18 +200,24 @@
        - { x: 18, y: 74, angle: 270 }
   geometry:
     rightsplit:
+      keypress: "R"
+      keymodifier: "Shift"
       startportnum: 0
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: 32, y: 0, angle: 0, peer: 0 }
        - { x: 32.6926627, y: 12.9551813, angle: 22.5, peer: 0 }
     leftjoin:
+      keypress: "L"
+      keymodifier: "Alt"
       startportnum: 2
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -29.56414504, y: 12.24586984, angle: 0, peer: 0 }
        - { x: -35.16181518, y: 0.54191353, angle: 22.5, peer: 0 }
     leftmerge:
+      keypress: "L"
+      keymodifier: "Control"
       startportnum: 1
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }

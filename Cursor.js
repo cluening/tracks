@@ -30,7 +30,16 @@ class Cursor {
   }
 
 
-  handleClick(x, y) {
+  handleButtonClick(part, geometry) {
+    let newcursor = this;
+
+    newcursor = tracklist.add(new TrackPiece(part, geometry, this));
+
+    return newcursor;
+  }
+
+
+  handleCanvasClick(x, y) {
     const newcursor = new Cursor();
 
     const [targetpiece, targetportnum] = tracklist.getPieceAt(x, y);
@@ -56,6 +65,7 @@ class Cursor {
   handleKeyPress(code, modifier) {
     let newcursor = this;
 
+    // First handle arrows and the like
     switch(code) {
       case "ArrowLeft":
         this.moveAlongTrack("left");
@@ -69,41 +79,16 @@ class Cursor {
       case "ArrowUp":
         this.moveAlongTrack("up");
         break;
-      case "KeyS":
-        newcursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
-        break;
-      case "KeyR":
-        if (modifier == "Alt") {
-          newcursor = tracklist.add(new TrackPiece("2861", "rightjoin", cursor));
-        } else if (modifier == "Control") {
-          newcursor = tracklist.add(new TrackPiece("2861", "rightmerge", cursor));
-        } else if (modifier == "Meta") {
-          // Do nothing
-        } else if (modifier == "Shift") {
-          newcursor = tracklist.add(new TrackPiece("2859", "rightsplit", cursor));
-        } else {
-          newcursor = tracklist.add(new TrackPiece("2867", "right", cursor));
-        }
-        break;
-      case "KeyL":
-        if (modifier == "Alt") {
-          newcursor = tracklist.add(new TrackPiece("2859", "leftjoin", cursor));
-        } else if (modifier == "Control") {
-          newcursor = tracklist.add(new TrackPiece("2859", "leftmerge", cursor));
-        } else if (modifier == "Meta") {
-          // Do nothing
-        } else if (modifier == "Shift") {
-          newcursor = tracklist.add(new TrackPiece("2861", "leftsplit", cursor));
-        } else {
-          newcursor = tracklist.add(new TrackPiece("2867", "left", cursor));
-        }
-        break;
-      case "KeyX":
-        newcursor = tracklist.add(new TrackPiece("32087", "crossing", cursor));
-        break;
       case "Backspace":
         newcursor = tracklist.remove(cursor.activepiece);
         break;
+    }
+
+    // Next, handle keypressess associated with parts library pieces
+    if (partskeytable[code] != undefined) {
+      if (partskeytable[code][modifier] != undefined) {
+        newcursor = tracklist.add(new TrackPiece(partskeytable[code][modifier].part, partskeytable[code][modifier].geometry, this));
+      }
     }
 
     return newcursor;

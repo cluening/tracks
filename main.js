@@ -1,10 +1,23 @@
 let partslibrary = Object();
 const tracklist = new TrackList();
 const partslist = [];
+const partskeytable = {};
 let cursor = new Cursor();
 
-function onClick(event) {
-  cursor = cursor.handleClick(event.offsetX, event.offsetY);
+
+function onCanvasClick(event) {
+  cursor = cursor.handleCanvasClick(event.offsetX, event.offsetY);
+  window.requestAnimationFrame(drawCanvas);
+}
+
+
+function onButtonClick(event) {
+  const part = event.target.getAttribute("data-part");
+  const geometry = event.target.getAttribute("data-geometry");
+
+  cursor = cursor.handleButtonClick(part, geometry);
+  adjustCanvas();
+
   window.requestAnimationFrame(drawCanvas);
 }
 
@@ -28,9 +41,18 @@ function onKeyDown(event) {
     modifier = "Meta";
   } else if (event.shiftKey) {
     modifier = "Shift";
+  } else {
+    modifier = "None";
   }
-  cursor = cursor.handleKeyPress(event.code, modifier);
 
+  cursor = cursor.handleKeyPress(event.code, modifier);
+  adjustCanvas();
+
+  window.requestAnimationFrame(drawCanvas);
+}
+
+
+function adjustCanvas() {
   const canvas = document.getElementById("layout");
   const canvaswrapper = document.getElementById("layoutwrapper");
   const layoutpadding = 32;
@@ -89,9 +111,6 @@ function onKeyDown(event) {
   if (cursor.y > viewporty1 - layoutpadding) {
     canvaswrapper.scrollBy(0, cursor.y - (viewporty1 - layoutpadding));
   }
-
-  // All done!  Time to request that the canvas be redrawn
-  window.requestAnimationFrame(drawCanvas);
 }
 
 
@@ -105,10 +124,10 @@ async function onLoad() {
   console.log("Loading!");
 
   window.addEventListener("keydown", onKeyDown);
-  canvas.addEventListener("click", onClick);
+  canvas.addEventListener("click", onCanvasClick);
 
   partslibrary = await loadPartsLibrary();
-  //console.log(partslibrary);
+  buildToolbar();
 
   cursor.x = 100;
   cursor.y = 100;
@@ -261,6 +280,39 @@ async function loadPartsLibrary() {
   }
 
   return(partslibrary);
+}
+
+
+function buildToolbar() {
+  const toolbar = document.getElementById("toolbarwrapper");
+  for (const part in partslibrary) {
+    // console.log("Configuring " + part);
+    for (const geometry in partslibrary[part].geometry) {
+      // console.log("  " + geometry);
+
+      // Create a button for this part
+      const newbutton = document.createElement("button");
+      newbutton.innerText = part + ": " + geometry;
+      newbutton.setAttribute("class", "toolbarbutton");
+      newbutton.setAttribute("id", "button-" + part + "-" + geometry);
+      newbutton.setAttribute("data-part", part);
+      newbutton.setAttribute("data-geometry", geometry);
+      newbutton.addEventListener("click", onButtonClick);
+
+      toolbar.appendChild(newbutton);
+
+      // Create a key table entry for this part
+      const keypress = partslibrary[part].geometry[geometry].keypress;
+      const keymodifier = partslibrary[part].geometry[geometry].keymodifier;
+
+      if (keypress != undefined && keymodifier != undefined) {
+        if (partskeytable["Key" + keypress] == undefined) {
+          partskeytable["Key" + keypress] = {};
+        }
+        partskeytable["Key" + keypress][keymodifier] = { part: part, geometry: geometry };
+      }
+    }
+  }
 }
 
 
