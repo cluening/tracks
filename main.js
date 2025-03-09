@@ -12,8 +12,8 @@ function onCanvasClick(event) {
 
 
 function onButtonClick(event) {
-  const part = event.target.getAttribute("data-part");
-  const geometry = event.target.getAttribute("data-geometry");
+  const part = event.currentTarget.getAttribute("data-part");
+  const geometry = event.currentTarget.getAttribute("data-geometry");
 
   cursor = cursor.handleButtonClick(part, geometry);
   adjustCanvas();
@@ -288,24 +288,34 @@ function buildToolbar() {
   for (const part in partslibrary) {
     // console.log("Configuring " + part);
     for (const geometry in partslibrary[part].geometry) {
-      // console.log("  " + geometry);
+      const keypress = partslibrary[part].geometry[geometry].keypress;
+      const keymodifier = partslibrary[part].geometry[geometry].keymodifier;
 
       // Create a button for this part
       const newbutton = document.createElement("button");
-      newbutton.innerText = part + ": " + geometry;
+      let tooltipstring = "";
+      // newbutton.innerText = part + ": " + geometry;
       newbutton.setAttribute("class", "toolbarbutton");
       newbutton.setAttribute("id", "button-" + part + "-" + geometry);
-      newbutton.style.order = partslibrary[part].geometry[geometry].buttonindex;
+      if (keymodifier != undefined && keymodifier != "None"){
+        tooltipstring = partslibrary[part].geometry[geometry].keymodifier + "-";
+      }
+      if (keypress != undefined){
+        tooltipstring += partslibrary[part].geometry[geometry].keypress;
+        newbutton.setAttribute("title", tooltipstring);
+      }
+      newbutton.style.order = partslibrary[part].geometry[geometry].button.index;
       newbutton.setAttribute("data-part", part);
       newbutton.setAttribute("data-geometry", geometry);
       newbutton.addEventListener("click", onButtonClick);
 
+      const newimage = document.createElement("img");
+      newimage.setAttribute("src", "partslibrary/" + partslibrary[part].geometry[geometry].button.path);
+      newbutton.appendChild(newimage);
+
       toolbar.appendChild(newbutton);
 
       // Create a key table entry for this part
-      const keypress = partslibrary[part].geometry[geometry].keypress;
-      const keymodifier = partslibrary[part].geometry[geometry].keymodifier;
-
       if (keypress != undefined && keymodifier != undefined) {
         if (partskeytable["Key" + keypress] == undefined) {
           partskeytable["Key" + keypress] = {};

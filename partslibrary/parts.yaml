@@ -28,7 +28,9 @@
     crossing:
       keypress: "X"
       keymodifier: "None"
-      buttonindex: 9
+      button:
+        index: 9
+        path: graphics/32087/crossing.png
       startportnum: 0
       ports:
        -  { x: 0, y: 0, angle: 180, peer: 1 }
@@ -67,7 +69,9 @@
     left:
       keypress: "L"
       keymodifier: "None"
-      buttonindex: 1
+      button:
+        index: 1
+        path: graphics/2867/left.png
       startportnum: 1
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -75,7 +79,9 @@
     right:
       keypress: "R"
       keymodifier: "None"
-      buttonindex: 2
+      button:
+        index: 2
+        path: graphics/2867/right.png
       startportnum: 0
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -108,7 +114,9 @@
     straight:
       keypress: "S"
       keymodifier: "None"
-      buttonindex: 0
+      button:
+        index: 0
+        path: graphics/2865/straight.png
       startportnum: 0
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -149,7 +157,9 @@
     leftsplit:
       keypress: "L"
       keymodifier: "Shift"
-      buttonindex: 3
+      button:
+        index: 3
+        path: graphics/2861/leftsplit.png
       startportnum: 0
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -158,7 +168,9 @@
     rightjoin:
       keypress: "R"
       keymodifier: "Alt"
-      buttonindex: 8
+      button:
+        index: 8
+        path: graphics/2861/rightjoin.png
       startportnum: 2
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -167,7 +179,9 @@
     rightmerge:
       keypress: "R"
       keymodifier: "Control"
-      buttonindex: 6
+      button:
+        index: 6
+        path: graphics/2861/rightmerge.png
       startportnum: 1
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -209,7 +223,9 @@
     rightsplit:
       keypress: "R"
       keymodifier: "Shift"
-      buttonindex: 4
+      button:
+        index: 4
+        path: graphics/2859/rightsplit.png
       startportnum: 0
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -218,7 +234,9 @@
     leftjoin:
       keypress: "L"
       keymodifier: "Alt"
-      buttonindex: 7
+      button:
+        index: 7
+        path: graphics/2859/leftjoin.png
       startportnum: 2
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
@@ -227,7 +245,9 @@
     leftmerge:
       keypress: "L"
       keymodifier: "Control"
-      buttonindex: 5
+      button:
+        index: 5
+        path: graphics/2859/leftmerge.png
       startportnum: 1
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
