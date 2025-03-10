@@ -22,7 +22,7 @@ class TrackList {
           const x = newpiece.ports[portnum].x;
           const y = newpiece.ports[portnum].y;
           const otherportnum = piece.getPortAt(x, y);
-          if (otherportnum != undefined) {
+          if (otherportnum != undefined && piece.ports[portnum].connectedpiece == undefined) {
             newpiece.connectPiece(portnum, piece, otherportnum);
           }
         }
