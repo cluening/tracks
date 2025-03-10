@@ -33,7 +33,7 @@ class Cursor {
   handleButtonClick(part, geometry) {
     let newcursor = this;
 
-    newcursor = tracklist.add(new TrackPiece(part, geometry, this));
+    newcursor = layout.add(new TrackPiece(part, geometry, this));
 
     return newcursor;
   }
@@ -42,7 +42,7 @@ class Cursor {
   handleCanvasClick(x, y) {
     const newcursor = new Cursor();
 
-    const [targetpiece, targetportnum] = tracklist.getPieceAt(x, y);
+    const [targetpiece, targetportnum] = layout.getPieceAt(x, y);
 
     if (targetpiece != undefined) {
       newcursor.x = targetpiece.ports[targetportnum].x;
@@ -80,14 +80,14 @@ class Cursor {
         this.moveAlongTrack("up");
         break;
       case "Backspace":
-        newcursor = tracklist.remove(cursor.activepiece);
+        newcursor = layout.remove(cursor.activepiece);
         break;
     }
 
     // Next, handle keypressess associated with parts library pieces
     if (partskeytable[code] != undefined) {
       if (partskeytable[code][modifier] != undefined) {
-        newcursor = tracklist.add(new TrackPiece(partskeytable[code][modifier].part, partskeytable[code][modifier].geometry, this));
+        newcursor = layout.add(new TrackPiece(partskeytable[code][modifier].part, partskeytable[code][modifier].geometry, this));
       }
     }
 

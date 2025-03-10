@@ -1,5 +1,5 @@
 let partslibrary = Object();
-const tracklist = new TrackList();
+const layout = new TrackList();
 const partslist = [];
 const partskeytable = {};
 let cursor = new Cursor();
@@ -71,7 +71,7 @@ function adjustCanvas() {
   cursor.x += xadd;
   cursor.y += yadd;
   if (xadd != 0 || yadd != 0) {
-    for (piece of tracklist.tracklist) {
+    for (piece of layout.tracklist) {
       piece.location.x += xadd;
       piece.location.y += yadd;
       for (port of piece.ports) {
@@ -333,6 +333,6 @@ function drawCanvas(time) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  tracklist.draw(ctx);
+  layout.draw(ctx);
   cursor.draw(ctx);
 }
