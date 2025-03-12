@@ -7,7 +7,7 @@ let cursor = new Cursor();
 
 function onCanvasClick(event) {
   cursor = cursor.handleCanvasClick(event.offsetX, event.offsetY);
-  window.requestAnimationFrame(drawCanvas);
+  window.requestAnimationFrame(updateScreen);
 }
 
 
@@ -18,7 +18,7 @@ function onButtonClick(event) {
   cursor = cursor.handleButtonClick(part, geometry);
   adjustCanvas();
 
-  window.requestAnimationFrame(drawCanvas);
+  window.requestAnimationFrame(updateScreen);
 }
 
 
@@ -48,7 +48,7 @@ function onKeyDown(event) {
   cursor = cursor.handleKeyPress(event.code, modifier);
   adjustCanvas();
 
-  window.requestAnimationFrame(drawCanvas);
+  window.requestAnimationFrame(updateScreen);
 }
 
 
@@ -207,7 +207,7 @@ async function onLoad() {
 
   // tracklist.draw(ctx);
   // cursor.draw(ctx);
-  window.requestAnimationFrame(drawCanvas);
+  window.requestAnimationFrame(updateScreen);
 }
 
 
@@ -327,7 +327,13 @@ function buildToolbar() {
 }
 
 
-function drawCanvas(time) {
+function updateScreen(time) {
+  drawCanvas();
+  updateStatusBar();
+}
+
+
+function drawCanvas() {
   const canvas = document.getElementById("layout");
   const ctx = canvas.getContext("2d");
 
@@ -335,4 +341,12 @@ function drawCanvas(time) {
 
   layout.draw(ctx);
   cursor.draw(ctx);
+}
+
+
+function updateStatusBar() {
+  const piececount = layout.tracklist.length;
+  const piececountspan = document.getElementById("piececount");
+
+  piececountspan.innerHTML = piececount;
 }
