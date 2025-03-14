@@ -7,6 +7,7 @@ class TrackPiece {
   startportnum = -1;
   image;
   imagebaseangle;
+  selected = false;
 
   constructor(type, geometry, cursor) {
     this.type = type;
@@ -136,6 +137,11 @@ class TrackPiece {
     ctx.translate(Math.round(x), Math.round(y));
     ctx.rotate(this.imagebaseangle * Math.PI / 180);
     ctx.translate(Math.round(x) * -1, Math.round(y) * -1);
+
+    if (this.selected) {
+      ctx.shadowColor = "blue";
+      ctx.shadowBlur = 2;
+    }
 
     ctx.drawImage(
       this.image.image,

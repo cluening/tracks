@@ -11,6 +11,13 @@ function onCanvasClick(event) {
 }
 
 
+function onCanvasDoubleClick(event) {
+  console.log("Double double!");
+  cursor = cursor.handleCanvasDoubleClick(event.offsetX, event.offsetY);
+  window.requestAnimationFrame(updateScreen);
+}
+
+
 function onButtonClick(event) {
   const part = event.currentTarget.getAttribute("data-part");
   const geometry = event.currentTarget.getAttribute("data-geometry");
@@ -129,6 +136,8 @@ async function onLoad() {
 
   window.addEventListener("keydown", onKeyDown);
   canvas.addEventListener("click", onCanvasClick);
+  // Double clicks aren't finished yet, so this is disabled for now
+  // canvas.addEventListener("dblclick", onCanvasDoubleClick);
 
   partslibrary = await loadPartsLibrary();
   buildToolbar();

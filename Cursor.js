@@ -62,6 +62,18 @@ class Cursor {
   }
 
 
+  handleCanvasDoubleClick(x, y) {
+    const newcursor = this;
+    const [targetpiece, targetportnum] = layout.getPieceAt(x, y);
+
+    if (targetpiece != undefined) {
+      targetpiece.selected = true;
+    }
+
+    return this;
+  }
+
+
   handleKeyPress(code, modifier) {
     let newcursor = this;
 
