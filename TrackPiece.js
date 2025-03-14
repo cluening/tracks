@@ -23,6 +23,22 @@ class TrackPiece {
     let imagezeroportangle = baseimage.ports[0].angle;
     let imagestartportangle = baseimage.ports[this.startportnum].angle;
 
+    // Calculate rotated bounding box for this piece
+    const partbounds = partslibrary[this.type].geometry[this.geometry].bounds;
+    const rotatedbounds = [{}, {}, {}, {}];
+
+    [rotatedbounds[0].x, rotatedbounds[0].y] = this.rotatePoint(partbounds.left, partbounds.top, this.angle);
+    [rotatedbounds[1].x, rotatedbounds[1].y] = this.rotatePoint(partbounds.right, partbounds.top, this.angle);
+    [rotatedbounds[2].x, rotatedbounds[2].y] = this.rotatePoint(partbounds.right, partbounds.bottom, this.angle);
+    [rotatedbounds[3].x, rotatedbounds[3].y] = this.rotatePoint(partbounds.left, partbounds.bottom, this.angle);
+    for (const i in rotatedbounds) {
+      rotatedbounds[i].x *= 2;  // Adjust for the x2 image scaling factor
+      rotatedbounds[i].y *= 2;  // Adjust for the x2 image scaling factor
+      rotatedbounds[i].x += this.location.x;
+      rotatedbounds[i].y += this.location.y;
+    }
+    this.bounds = rotatedbounds;
+
     // Calculate the angle of the image that should be used for this piece,
     // and then set this piece's image to that one
     let imageangle = ((imagezeroportangle - imagestartportangle + this.angle) + 360) % 90;
@@ -44,6 +60,7 @@ class TrackPiece {
       newport.y = port.y - partslibrary[this.type].geometry[this.geometry].ports[this.startportnum].y;
 
       // Next, rotate it around the start port (which is at 0,0 at this point) by this piece's angle
+      // FIXME: change this to use the this.rotatePoint() function
       let theta = this.angle * Math.PI / 180;
       newportprime.x = (newport.x * Math.cos(theta)) - (newport.y * Math.sin(theta));
       newportprime.y = (newport.x * Math.sin(theta)) + (newport.y * Math.cos(theta));
@@ -153,6 +170,82 @@ class TrackPiece {
   }
 
 
+  // Draw the bounds of this piece
+  drawBounds(ctx) {
+    ctx.beginPath();
+    ctx.moveTo(this.bounds[0].x, this.bounds[0].y);
+
+    ctx.lineTo(this.bounds[1].x, this.bounds[1].y);
+    ctx.lineTo(this.bounds[2].x, this.bounds[2].y);
+    ctx.lineTo(this.bounds[3].x, this.bounds[3].y);
+    ctx.lineTo(this.bounds[0].x, this.bounds[0].y);
+
+    ctx.stroke();
+  }
+
+
+  // Check if x,y on the canvas is within this piece
+  isAt(x, y) {
+    // Find the area of the bounds rectangle
+    const side1len = this.pointDistance(
+      this.bounds[0].x, this.bounds[0].y,
+      this.bounds[1].x, this.bounds[1].y);
+    const side2len = this.pointDistance(
+      this.bounds[1].x, this.bounds[1].y,
+      this.bounds[2].x, this.bounds[2].y);
+    const boundsarea = side1len * side2len;
+
+    // Find the areas of each triangle between two corners and the cursor
+    const triangle1area = this.triangleArea(
+      this.pointDistance(x, y, this.bounds[0].x, this.bounds[0].y),
+      this.pointDistance(this.bounds[0].x, this.bounds[0].y, this.bounds[1].x, this.bounds[1].y),
+      this.pointDistance(this.bounds[1].x, this.bounds[1].y, x, y)
+    );
+    const triangle2area = this.triangleArea(
+      this.pointDistance(x, y, this.bounds[1].x, this.bounds[1].y),
+      this.pointDistance(this.bounds[1].x, this.bounds[1].y, this.bounds[2].x, this.bounds[2].y),
+      this.pointDistance(this.bounds[2].x, this.bounds[2].y, x, y)
+    );
+    const triangle3area = this.triangleArea(
+      this.pointDistance(x, y, this.bounds[2].x, this.bounds[2].y),
+      this.pointDistance(this.bounds[2].x, this.bounds[2].y, this.bounds[3].x, this.bounds[3].y),
+      this.pointDistance(this.bounds[3].x, this.bounds[3].y, x, y)
+    );
+    const triangle4area = this.triangleArea(
+      this.pointDistance(x, y, this.bounds[3].x, this.bounds[3].y),
+      this.pointDistance(this.bounds[3].x, this.bounds[3].y, this.bounds[0].x, this.bounds[0].y),
+      this.pointDistance(this.bounds[0].x, this.bounds[0].y, x, y)
+    );
+
+    // Sum the triangle areas
+    const triangleareasum = triangle1area + triangle2area + triangle3area + triangle4area;
+
+    // If the sum of the triangle areas is the same as the original box, it's a hit!
+    if (Math.round(triangleareasum) > Math.round(boundsarea)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
+  // Return this piece's port that is closest to x,y
+  getClosestPort(x, y) {
+    let closestportnum = -1;
+    let closestdist = 1000000;
+
+    for (const portnum in this.ports) {
+      const newdist = this.pointDistance(x, y, this.ports[portnum].x, this.ports[portnum].y)
+      if (newdist < closestdist) {
+        closestportnum = portnum;
+        closestdist = newdist;
+      }
+    }
+
+    return closestportnum;
+  }
+
+
   // Return this piece's port at x,y within a tolerance of tolerance pixels, if it exists
   getPortAt(x, y, tolerance=1.0) {
     // console.log("Getting port at "  + x + "," + y);
@@ -166,11 +259,6 @@ class TrackPiece {
         // console.log("Found a port! " + portnum);
         return portnum;
       }
-
-      // if ((this.ports[portnum].x == x) && (this.ports[portnum].y == y)) {
-      //   // console.log("Found a port! " + portnum);
-      //   return portnum;
-      // }
     }
 
     // If we get here, no port was found
@@ -178,4 +266,29 @@ class TrackPiece {
     return undefined;
   }
 
+
+  // Rotate a point around 0,0
+  rotatePoint(x, y, degrees) {
+    let newx = 0;
+    let newy = 0;
+    let theta = degrees * Math.PI / 180;
+
+    newx = (x * Math.cos(theta)) - (y * Math.sin(theta));
+    newy = (x * Math.sin(theta)) + (y * Math.cos(theta));
+
+    return([newx, newy]);
+  }
+
+  
+  // Find the distance between two points
+  pointDistance(x1, y1, x2, y2) {
+    return Math.sqrt( Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) );
+  }
+
+
+  // Find the area of a triangle using Heron's Formula
+  triangleArea(d1, d2, d3) {
+    let s = (d1 + d2 + d3) / 2;
+    return Math.sqrt(s * (s - d1) * (s - d2) * (s - d3));
+  }
 }

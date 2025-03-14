@@ -32,6 +32,7 @@
         index: 9
         path: graphics/32087/crossing.png
       startportnum: 0
+      bounds: { left: 0, top: -8, right: 16, bottom: 8 }
       ports:
        -  { x: 0, y: 0, angle: 180, peer: 1 }
        -  { x: 16, y: 0, angle: 0, peer: 0 }
@@ -73,6 +74,7 @@
         index: 1
         path: graphics/2867/left.png
       startportnum: 1
+      bounds: { left: 0, top: -6.74033683, right: 16.8380711, bottom: 4 }
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: -15.3073373, y: 3.0448187, angle: 22.5, peer: 0 }
@@ -83,6 +85,7 @@
         index: 2
         path: graphics/2867/right.png
       startportnum: 0
+      bounds: { left: 0, top: -4, right: 16.8380711, bottom: 6.74033683 }
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: 15.3073373, y: 3.0448187, angle: 22.5, peer: 0 }
@@ -118,6 +121,7 @@
         index: 0
         path: graphics/2865/straight.png
       startportnum: 0
+      bounds: { left: 0, top: -4, right: 16, bottom: 4 }
       ports:
         - { x: 0, y: 0, angle: 180, peer: 1 }
         - { x: 16, y: 0, angle: 0, peer: 0 }
@@ -161,6 +165,7 @@
         index: 3
         path: graphics/2861/leftsplit.png
       startportnum: 0
+      bounds: { left: 0, top: -16.6506995, right: 34.2233965, bottom: 4 }
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: 32, y: 0, angle: 0, peer: 0 }
@@ -172,6 +177,7 @@
         index: 8
         path: graphics/2861/rightjoin.png
       startportnum: 2
+      bounds: { left: 0, top: -15.66454497, right: 36.69254891, bottom: 4.23743166 }
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -29.56414504, y: -12.24586984, angle: 0, peer: 0 }
@@ -183,6 +189,7 @@
         index: 6
         path: graphics/2861/rightmerge.png
       startportnum: 1
+      bounds: { left: -2.2233695, top: -4, right: 32, bottom: 16.6506995 }
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -32, y: 0, angle: 0, peer: 0 }
@@ -227,6 +234,7 @@
         index: 4
         path: graphics/2859/rightsplit.png
       startportnum: 0
+      bounds: { left: 0, top: -4, right: 34.2233965, bottom: 16.6506995 }
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: 32, y: 0, angle: 0, peer: 0 }
@@ -238,6 +246,7 @@
         index: 7
         path: graphics/2859/leftjoin.png
       startportnum: 2
+      bounds: { left: 0, top: -4.23743166, right: 36.69254891, bottom: 15.66454497 }
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -29.56414504, y: 12.24586984, angle: 0, peer: 0 }
@@ -249,6 +258,7 @@
         index: 5
         path: graphics/2859/leftmerge.png
       startportnum: 1
+      bounds: { left: -2.2233695, top: -16.6506995, right: 32, bottom: 4 }
       ports:
        - { x: 0, y: 0, angle: 180, peer: 1 }
        - { x: -32, y: 0, angle: 0, peer: 0 }

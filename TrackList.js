@@ -93,11 +93,12 @@ class TrackList {
 
   // Return a piece and port near x, y, if one exists
   getPieceAt(x, y) {
-    const tolerance = 8;  // pixels (or base geometry studs);
+    // Search in reverse order to priorize pieces on top of other pieces
+    for (let i = this.tracklist.length - 1; i >= 0; i--) {
+      const piece = this.tracklist[i];
 
-    for (const piece of this.tracklist) {
-      const portnum = piece.getPortAt(x, y, tolerance);
-      if (portnum != undefined) {
+      if (piece.isAt(x, y)) {
+        const portnum = piece.getClosestPort(x, y);
         return [ piece, portnum ];
       }
     }
@@ -111,6 +112,7 @@ class TrackList {
     for (let piece of this.tracklist){
       piece.draw(ctx);
       // piece.drawPorts(ctx);
+      // piece.drawBounds(ctx);
     }
   }
 }

@@ -71,12 +71,16 @@ function adjustCanvas() {
   cursor.x += xadd;
   cursor.y += yadd;
   if (xadd != 0 || yadd != 0) {
-    for (piece of layout.tracklist) {
+    for (const piece of layout.tracklist) {
       piece.location.x += xadd;
       piece.location.y += yadd;
-      for (port of piece.ports) {
+      for (const port of piece.ports) {
         port.x += xadd;
         port.y += yadd;
+      }
+      for (const corner of piece.bounds) {
+        corner.x += xadd;
+        corner.y += yadd;
       }
     }
   }
