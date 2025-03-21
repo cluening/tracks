@@ -363,3 +363,98 @@ function updateStatusBar() {
 
   piececountspan.innerHTML = piececount;
 }
+
+
+// Export the current layout
+// FIXME: I need a dialog that asks for a filename to save as
+function exportLayout(event) {
+  console.log("Downloading a file");
+
+  const blob = layout.createExportBlob();
+
+  const link = document.createElement("a");
+  link.download = "testfile.json";
+  link.href = window.URL.createObjectURL(blob);
+  link.dataset.downloadurl = ["text/json", link.download, link.href].join(":");
+
+  const downloadclickevent = new MouseEvent("click", {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  link.dispatchEvent(downloadclickevent);
+
+  window.URL.revokeObjectURL(link.href);
+  link.remove();
+}
+
+
+// Force a click on the hidden file selection input element
+function triggerFileSelect(event) {
+  console.log("Selecting a file to import!");
+
+  fileselector = document.getElementById("fileselector");
+  fileselector.click();
+}
+
+
+// Import a layout from a previously-exported file
+async function importLayout(event) {
+  console.log("Actually importing a layout!");
+  // FIXME: need to catch the error if this can't be parsed
+  const layoutimport = JSON.parse(await loadLayout(document.getElementById("fileselector").files[0]));
+
+  // First add all of the pieces, without connections
+  // FIXME: I should probably do some sanity checking as I load these
+  //  - is the part in the library?
+  //  - are all of the things defined?
+  for (const piece of layoutimport.piecelist) {
+    console.log("Got a piece: " + piece.type);
+
+    cursor = new Cursor();
+    cursor.x = piece.location.x;
+    cursor.y = piece.location.y;
+    cursor.angle = piece.angle;
+
+    cursor = layout.add(new TrackPiece(piece.type, piece.geometry, cursor), false);
+    adjustCanvas();
+  }
+
+  // Go back and make all of the connections
+  for (const importpiecenum in layoutimport.piecelist) {
+    const importpiece = layoutimport.piecelist[importpiecenum];
+    for (importportnum in importpiece.ports) {
+      const port = importpiece.ports[importportnum];
+      if (port.connectedpiece == -1) {
+        continue;
+      }
+      console.log(port);
+      // FIXME: catch if otherpiece comes back undefined
+      const otherpiece = layout.tracklist[port.connectedpiece];
+      // FIXME: catch if x or y come back undefined
+      const x = layout.tracklist[importpiecenum].ports[importportnum].x;
+      const y = layout.tracklist[importpiecenum].ports[importportnum].y;
+      const otherportnum = otherpiece.getClosestPort(x, y);
+      layout.tracklist[importpiecenum].connectPiece(importportnum, otherpiece, otherportnum);
+    }
+  }
+
+  window.requestAnimationFrame(updateScreen);
+}
+
+
+// Load a file and extract its text
+async function loadLayout(layoutfile) {
+  // FIXME: catch errors if the file can't be read
+  const promise = new Promise((resolve, reject) => {
+    const filereader = new FileReader();
+    filereader.onload = () => resolve(filereader.result);
+    filereader.onerror = () => reject("Failed to load layout");
+    filereader.readAsText(layoutfile);
+  });
+
+  const layoutfilecontent = await promise;
+
+  return(layoutfilecontent);
+}
+

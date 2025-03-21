@@ -2,7 +2,7 @@ class TrackList {
   tracklist = [];
 
   // Add a new piece of track
-  add(newpiece) {
+  add(newpiece, connect=true) {
     // If the cursor's active port is already connected to something, do nothing
     if (
       cursor.activepiece != undefined 
@@ -12,19 +12,21 @@ class TrackList {
     }
 
     // Connect the new piece to the other pieces it should be connected to
-    for (const portnum in newpiece.ports) {
-      if ((portnum == newpiece.startportnum) && (cursor.activepiece != undefined)) {
-        // The startport should connect to the cursor's currently active piece
-        cursor.activepiece.connectPiece(cursor.activeportnum, newpiece, newpiece.startportnum);
-      } else {
-        // Other ports should connect to existing pieces with overlapping ports
-        for (const piece of this.tracklist) {
-          const x = newpiece.ports[portnum].x;
-          const y = newpiece.ports[portnum].y;
-          const otherportnum = piece.getPortAt(x, y);
-          if (otherportnum != undefined && piece.ports[otherportnum].connectedpiece == undefined) {
-            // if (otherportnum != undefined) {
-            newpiece.connectPiece(portnum, piece, otherportnum);
+    if (connect == true) {
+      for (const portnum in newpiece.ports) {
+        if ((portnum == newpiece.startportnum) && (cursor.activepiece != undefined)) {
+          // The startport should connect to the cursor's currently active piece
+          cursor.activepiece.connectPiece(cursor.activeportnum, newpiece, newpiece.startportnum);
+        } else {
+          // Other ports should connect to existing pieces with overlapping ports
+          for (const piece of this.tracklist) {
+            const x = newpiece.ports[portnum].x;
+            const y = newpiece.ports[portnum].y;
+            const otherportnum = piece.getPortAt(x, y);
+            if (otherportnum != undefined && piece.ports[otherportnum].connectedpiece == undefined) {
+              // if (otherportnum != undefined) {
+              newpiece.connectPiece(portnum, piece, otherportnum);
+            }
           }
         }
       }
@@ -115,4 +117,34 @@ class TrackList {
       // piece.drawBounds(ctx);
     }
   }
+
+
+  // Create a JSON blob that can be downloaded
+  createExportBlob() {
+    const layoutexport = Object();
+
+    layoutexport.version = 0;
+    layoutexport.piecelist = []
+
+    for (const i in this.tracklist) {
+      const currentpiece = Object();
+      currentpiece.type = this.tracklist[i].type;
+      currentpiece.geometry = this.tracklist[i].geometry;
+      currentpiece.location = Object();
+      currentpiece.location.x = this.tracklist[i].location.x;
+      currentpiece.location.y = this.tracklist[i].location.y;
+      currentpiece.angle = this.tracklist[i].angle;
+      currentpiece.ports = [];
+      for (const port of this.tracklist[i].ports) {
+        const currentport = Object();
+        currentport.connectedpiece = this.tracklist.indexOf(port.connectedpiece);
+        currentpiece.ports.push(currentport);
+      }
+
+      layoutexport.piecelist.push(currentpiece);
+    }
+
+    return new Blob([JSON.stringify(layoutexport)], { type: "text/json" });
+  }
+
 }

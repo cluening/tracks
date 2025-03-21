@@ -42,3 +42,7 @@ div.statusbarwrapper {
   flex-shrink: 1;
   flex-basis: 10px;
 }
+
+button.pushright {
+  margin-left: auto;
+}
