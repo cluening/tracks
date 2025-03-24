@@ -62,6 +62,7 @@ dialog {
   border: 0px;
   border-radius: 25px;
   box-shadow: 0px 5px 20px #555555;
+  min-width: 15em;
 }
 
 div.dialogtitlewrapper {

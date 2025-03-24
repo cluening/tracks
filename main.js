@@ -408,6 +408,7 @@ function displayExportDialog(event) {
 
 
 // Import a layout from a previously-exported file
+// FIXME: I should pop up a dialog confirming they want to clear the current layout, and then do that clearing before loading the new one
 async function importLayout(event) {
   console.log("Actually importing a layout!");
 
@@ -416,8 +417,7 @@ async function importLayout(event) {
   try {
     layoutimport = JSON.parse(await loadLayout(document.getElementById("fileselector").files[0]));
   } catch (exception) {
-    // FIXME: this needs to go in a dialog
-    console.log("Could not parse import file");
+    displayInfoDialog("Error", "Could not parse imported file");
     return;
   }
 
@@ -485,4 +485,16 @@ function exportDialogClosed(event) {
     exportLayout(filename);
   }
 
+}
+
+
+function displayInfoDialog(title, body) {
+  const infodialog = document.getElementById("infodialog");
+  const dialogtitle = infodialog.querySelector(".dialogtitle");
+  const dialogbody = infodialog.querySelector(".dialogbody");
+
+  dialogtitle.innerHTML = title;
+  dialogbody.innerHTML = body;
+
+  infodialog.showModal();
 }
