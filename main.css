@@ -3,6 +3,7 @@ html, body {
   margin: 0px;
   padding: 0px;
   height: 100%;
+  font-family: sans-serif;
 }
 
 canvas.layout {
@@ -45,4 +46,36 @@ div.statusbarwrapper {
 
 button.pushright {
   margin-left: auto;
+}
+
+span.label {
+  margin-right: 0.5em;
+}
+
+/* Shown behind dialog elements */
+::backdrop {
+  background-color: black;
+  opacity: 0.30;
+}
+
+dialog {
+  border: 0px;
+  border-radius: 25px;
+  box-shadow: 0px 5px 20px #555555;
+}
+
+div.dialogtitlewrapper {
+  text-align: center;
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+div.dialogcontentwrapper {
+  margin: 10px;
+}
+
+div.dialogbuttonwrapper {
+  float: right;
+  margin-top: 20px;
 }

@@ -12,19 +12,35 @@
   <body onload="onLoad()">
     <div class="pagewrapper">
       <div class="toolbarwrapper" id="toolbarwrapper">
-        <button class="toolbarbutton pushright" style="order: 1000" onclick="triggerFileSelect()">Import</button>
+        <button class="toolbarbutton pushright" style="order: 1000" onclick="displayFileSelect()">Import</button>
         <input type="file" single id="fileselector" style="display:none" onchange="importLayout()">
-        <button class="toolbarbutton" style="order: 1001" onclick="exportLayout()">Export</button>
+        <button class="toolbarbutton" style="order: 1001" onclick="displayExportDialog()">Export</button>
       </div>
       <div class="layoutwrapper" id="layoutwrapper">
-        <canvas class="layout" id="layout" width="320" height="240"></canvas>
+        <canvas class="layout" id="layout" tabindex=1 width="320" height="240"></canvas>
       </div>
       <div class="statusbarwrapper">
         Pieces: <span id="piececount">0</span>
       </div>
     </div>
-    <div class="dialog" id="exportfilename" style="display: none">
-      Filename to download as...
-    </div>
+  
+    <dialog id="exportdialog" onClose="exportDialogClosed()">
+      <form method="dialog">
+        <div class="dialogcontentwrapper">
+          <div class="dialogtitlewrapper">
+            Export Layout
+          </div>
+          <div>
+            <span class="label"><label for="exportfilename">Export as:</label></span>
+            <input autofocus required type="text" id="exportfilename" size=12 maxlength=255 placeholder="filename" />.tracks
+          </div>
+          <div class="dialogbuttonwrapper">
+            <button formnovalidate value="cancel">Cancel</button>
+            <button value="export">Export</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
   </body>
 </html>

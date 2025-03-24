@@ -131,10 +131,11 @@ async function onLoad() {
 
   canvas.width = canvaswrapper.clientWidth;
   canvas.height = canvaswrapper.clientHeight;
+  canvas.focus();
 
   console.log("Loading!");
 
-  window.addEventListener("keydown", onKeyDown);
+  canvas.addEventListener("keydown", onKeyDown);
   canvas.addEventListener("click", onCanvasClick);
   // Double clicks aren't finished yet, so this is disabled for now
   // canvas.addEventListener("dblclick", onCanvasDoubleClick);
@@ -366,14 +367,13 @@ function updateStatusBar() {
 
 
 // Export the current layout
-// FIXME: I need a dialog that asks for a filename to save as
-function exportLayout(event) {
+function exportLayout(filename) {
   console.log("Downloading a file");
 
   const blob = layout.createExportBlob();
 
   const link = document.createElement("a");
-  link.download = "testfile.json";
+  link.download = filename;
   link.href = window.URL.createObjectURL(blob);
   link.dataset.downloadurl = ["text/json", link.download, link.href].join(":");
 
@@ -390,7 +390,7 @@ function exportLayout(event) {
 
 
 // Force a click on the hidden file selection input element
-function triggerFileSelect(event) {
+function displayFileSelect(event) {
   console.log("Selecting a file to import!");
 
   fileselector = document.getElementById("fileselector");
@@ -398,19 +398,34 @@ function triggerFileSelect(event) {
 }
 
 
+// Display the export dialog
+function displayExportDialog(event) {
+  const exportdialog = document.getElementById("exportdialog");
+  
+  exportdialog.returnValue = "";
+  exportdialog.showModal();
+}
+
+
 // Import a layout from a previously-exported file
 async function importLayout(event) {
   console.log("Actually importing a layout!");
-  // FIXME: need to catch the error if this can't be parsed
-  const layoutimport = JSON.parse(await loadLayout(document.getElementById("fileselector").files[0]));
+
+  let layoutimport;
+
+  try {
+    layoutimport = JSON.parse(await loadLayout(document.getElementById("fileselector").files[0]));
+  } catch (exception) {
+    // FIXME: this needs to go in a dialog
+    console.log("Could not parse import file");
+    return;
+  }
 
   // First add all of the pieces, without connections
   // FIXME: I should probably do some sanity checking as I load these
   //  - is the part in the library?
   //  - are all of the things defined?
   for (const piece of layoutimport.piecelist) {
-    console.log("Got a piece: " + piece.type);
-
     cursor = new Cursor();
     cursor.x = piece.location.x;
     cursor.y = piece.location.y;
@@ -458,3 +473,16 @@ async function loadLayout(layoutfile) {
   return(layoutfilecontent);
 }
 
+
+function exportDialogClosed(event) {
+  console.log("Dialog was closed!");
+
+  const exportdialog = document.getElementById("exportdialog");
+  console.log(exportdialog.returnValue);
+
+  if (exportdialog.returnValue == "export") {
+    const filename = document.getElementById("exportfilename").value + ".tracks";
+    exportLayout(filename);
+  }
+
+}
