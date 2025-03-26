@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Tracks!</title>
     <script src="Cursor.js"></script>
     <script src="TrackPort.js"></script>
     <script src="TrackPiece.js"></script>
@@ -15,6 +16,7 @@
         <button class="toolbarbutton pushright" style="order: 1000" onclick="displayFileSelect()">Import</button>
         <input type="file" single id="fileselector" style="display:none" onchange="importLayout()">
         <button class="toolbarbutton" style="order: 1001" onclick="displayExportDialog()">Export</button>
+        <button class="toolbarbutton" style="order: 1002" onclick="displayAboutDialog()">?</button>
       </div>
       <div class="layoutwrapper" id="layoutwrapper">
         <canvas class="layout" id="layout" tabindex=1 width="320" height="240"></canvas>
@@ -50,6 +52,26 @@
           </div>
           <div>
             <span class="dialogbody">An error has occurred</span>
+          </div>
+          <div class="dialogbuttonwrapper">
+            <button formnovalidate value="close">Close</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="aboutdialog">
+      <form method="dialog">
+        <div class="dialogcontentwrapper">
+          <div class="dialogtitlewrapper">
+            <span class="dialogtitle">Tracks!</span>
+          </div>
+          <div class="dialogbodywrapper">
+            <p>A Lego train layout design tool, heavily inspired by Matthew D. Bates' <a href="https://www.diesel-dave.com/lego/train_depot/td.htm" target="_blank">Track Designer</a>.</p>
+
+            <p>I've always loved the simple aesthetic of Track Designer's design, but it hasn't been updated since the late 1990s, and it is slowly getting harder to run on modern computers.  So, here's a reimplementation of some of my favorite parts of it in a platform-neutral format.</p>
+
+            <p>Original Train Depot Track Kit bitmaps used in accordance with their <a href="https://www.diesel-dave.com/lego/train_depot/trackkit.htm#tnc" target="_blank">terms and conditions</a>.</p>
           </div>
           <div class="dialogbuttonwrapper">
             <button formnovalidate value="close">Close</button>

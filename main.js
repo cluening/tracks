@@ -405,10 +405,11 @@ function exportLayout(filename) {
 }
 
 
-// Force a click on the hidden file selection input element
+// Display the file selection box
 function displayFileSelect(event) {
   console.log("Selecting a file to import!");
 
+  // Force a click on the hidden file selection input element
   fileselector = document.getElementById("fileselector");
   fileselector.click();
 }
@@ -420,6 +421,14 @@ function displayExportDialog(event) {
   
   exportdialog.returnValue = "";
   exportdialog.showModal();
+}
+
+
+// Display the about dialog
+function displayAboutDialog(event) {
+  const aboutdialog = document.getElementById("aboutdialog");
+
+  aboutdialog.showModal();
 }
 
 
