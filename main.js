@@ -29,6 +29,13 @@ function onButtonClick(event) {
 }
 
 
+function onBeforeUnload(event) {
+  // Trigger the "are you sure you want to leave" dialog to prevent layout loss
+  event.preventDefault();
+  event.returnValue = true;
+};
+
+
 // FIXME: this currently makes it all the way to the end on _any_ keypress, meaning, for example, it will scroll the cursor back into view if you just press and release the shift key.  It needs some way to tell if the key that was pressed actually did anything.
 function onKeyDown(event) {
   // console.log(event.code);
@@ -342,6 +349,13 @@ function buildToolbar() {
 
 
 function updateScreen(time) {
+  // If the layout has changes, prompt before leaving this page
+  if (layout.changed) {
+    window.addEventListener("beforeunload", onBeforeUnload);
+  } else {
+    window.removeEventListener("beforeunload", onBeforeUnload);
+  }
+
   drawCanvas();
   updateStatusBar();
 }
@@ -386,6 +400,8 @@ function exportLayout(filename) {
 
   window.URL.revokeObjectURL(link.href);
   link.remove();
+
+  layout.changed = false;
 }
 
 

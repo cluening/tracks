@@ -1,8 +1,11 @@
 class TrackList {
   tracklist = [];
+  changed = false;
 
   // Add a new piece of track
   add(newpiece, connect=true) {
+    this.changed = true;
+
     // If the cursor's active port is already connected to something, do nothing
     if (
       cursor.activepiece != undefined 
@@ -55,6 +58,8 @@ class TrackList {
       // There's nothing to delete!
       return cursor;
     }
+
+    this.changed = true;
 
     // Prepare a new cursor to return at the end
     const newcursor = new Cursor();
