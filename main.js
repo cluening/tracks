@@ -402,6 +402,7 @@ function exportLayout(filename) {
   link.remove();
 
   layout.changed = false;
+  window.requestAnimationFrame(updateScreen);
 }
 
 
