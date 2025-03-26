@@ -1,4 +1,4 @@
-class TrackList {
+class Layout {
   tracklist = [];
   changed = false;
 
