@@ -1,0 +1,695 @@
+{
+  "32087": {
+    "name": "crossing",
+    "images": {
+      "0": {
+        "scale": 2,
+        "path": "graphics/32087/0.png",
+        "ports": [
+          {
+            "x": 0,
+            "y": 16,
+            "angle": 0
+          }
+        ]
+      },
+      "22.5": {
+        "scale": 2,
+        "path": "graphics/32087/22-5.png",
+        "ports": [
+          {
+            "x": 3,
+            "y": 12,
+            "angle": 22.5
+          }
+        ]
+      },
+      "45": {
+        "scale": 2,
+        "path": "graphics/32087/45.png",
+        "ports": [
+          {
+            "x": 5,
+            "y": 6,
+            "angle": 45
+          }
+        ]
+      },
+      "67.5": {
+        "scale": 2,
+        "path": "graphics/32087/67-5.png",
+        "ports": [
+          {
+            "x": 11,
+            "y": 3,
+            "angle": 67.5
+          }
+        ]
+      }
+    },
+    "geometry": {
+      "crossing": {
+        "keypress": "X",
+        "keymodifier": "None",
+        "button": {
+          "index": 9,
+          "path": "graphics/32087/crossing.png"
+        },
+        "startportnum": 0,
+        "bounds": {
+          "left": 0,
+          "top": -8,
+          "right": 16,
+          "bottom": 8
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": 16,
+            "y": 0,
+            "angle": 0,
+            "peer": 0
+          },
+          {
+            "x": 8,
+            "y": -8,
+            "angle": -90,
+            "peer": 3
+          },
+          {
+            "x": 8,
+            "y": 8,
+            "angle": 90,
+            "peer": 2
+          }
+        ]
+      }
+    }
+  },
+  "2867": {
+    "name": "curve",
+    "images": {
+      "0": {
+        "scale": 2,
+        "path": "graphics/2867/0.png",
+        "ports": [
+          {
+            "x": 0,
+            "y": 8,
+            "angle": 0
+          },
+          {
+            "x": 31,
+            "y": 14,
+            "angle": 202.5
+          }
+        ]
+      },
+      "22.5": {
+        "scale": 2,
+        "path": "graphics/2867/22-5.png",
+        "ports": [
+          {
+            "x": 3,
+            "y": 7,
+            "angle": 22.5
+          },
+          {
+            "x": 29,
+            "y": 24,
+            "angle": 225
+          }
+        ]
+      },
+      "45": {
+        "scale": 2,
+        "path": "graphics/2867/45.png",
+        "ports": [
+          {
+            "x": 6,
+            "y": 5,
+            "angle": 45
+          },
+          {
+            "x": 23,
+            "y": 31,
+            "angle": 247.5
+          }
+        ]
+      },
+      "67.5": {
+        "scale": 2,
+        "path": "graphics/2867/67-5.png",
+        "ports": [
+          {
+            "x": 7,
+            "y": 3,
+            "angle": 67.5
+          },
+          {
+            "x": 13,
+            "y": 34,
+            "angle": 270
+          }
+        ]
+      }
+    },
+    "geometry": {
+      "left": {
+        "keypress": "L",
+        "keymodifier": "None",
+        "button": {
+          "index": 1,
+          "path": "graphics/2867/left.png"
+        },
+        "startportnum": 1,
+        "bounds": {
+          "left": 0,
+          "top": -6.74033683,
+          "right": 16.8380711,
+          "bottom": 4
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": -15.3073373,
+            "y": 3.0448187,
+            "angle": 22.5,
+            "peer": 0
+          }
+        ]
+      },
+      "right": {
+        "keypress": "R",
+        "keymodifier": "None",
+        "button": {
+          "index": 2,
+          "path": "graphics/2867/right.png"
+        },
+        "startportnum": 0,
+        "bounds": {
+          "left": 0,
+          "top": -4,
+          "right": 16.8380711,
+          "bottom": 6.74033683
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": 15.3073373,
+            "y": 3.0448187,
+            "angle": 22.5,
+            "peer": 0
+          }
+        ]
+      }
+    }
+  },
+  "2865": {
+    "name": "straight",
+    "images": {
+      "0": {
+        "scale": 2,
+        "path": "graphics/2865/0.png",
+        "ports": [
+          {
+            "x": 0,
+            "y": 8,
+            "angle": 0
+          }
+        ]
+      },
+      "22.5": {
+        "scale": 2,
+        "path": "graphics/2865/22-5.png",
+        "ports": [
+          {
+            "x": 3,
+            "y": 7,
+            "angle": 22.5
+          }
+        ]
+      },
+      "45": {
+        "scale": 2,
+        "path": "graphics/2865/45.png",
+        "ports": [
+          {
+            "x": 6,
+            "y": 5,
+            "angle": 45
+          }
+        ]
+      },
+      "67.5": {
+        "scale": 2,
+        "path": "graphics/2865/67-5.png",
+        "ports": [
+          {
+            "x": 6,
+            "y": 3,
+            "angle": 67.5
+          }
+        ]
+      }
+    },
+    "geometry": {
+      "straight": {
+        "keypress": "S",
+        "keymodifier": "None",
+        "button": {
+          "index": 0,
+          "path": "graphics/2865/straight.png"
+        },
+        "startportnum": 0,
+        "bounds": {
+          "left": 0,
+          "top": -4,
+          "right": 16,
+          "bottom": 4
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": 16,
+            "y": 0,
+            "angle": 0,
+            "peer": 0
+          }
+        ]
+      }
+    }
+  },
+  "2861": {
+    "name": "left point",
+    "images": {
+      "0": {
+        "scale": 2,
+        "path": "graphics/2861/0.png",
+        "ports": [
+          {
+            "x": 0,
+            "y": 33,
+            "angle": 0
+          },
+          {
+            "x": 64,
+            "y": 33,
+            "angle": 180
+          },
+          {
+            "x": 65,
+            "y": 7,
+            "angle": 157.5
+          }
+        ]
+      },
+      "22.5": {
+        "scale": 2,
+        "path": "graphics/2861/22-5.png",
+        "ports": [
+          {
+            "x": 3,
+            "y": 17,
+            "angle": 22.5
+          },
+          {
+            "x": 63,
+            "y": 43,
+            "angle": 202.5
+          },
+          {
+            "x": 74,
+            "y": 18,
+            "angle": 180
+          }
+        ]
+      },
+      "45": {
+        "scale": 2,
+        "path": "graphics/2861/45.png",
+        "ports": [
+          {
+            "x": 6,
+            "y": 11,
+            "angle": 45
+          },
+          {
+            "x": 50,
+            "y": 57,
+            "angle": 225
+          },
+          {
+            "x": 71,
+            "y": 39,
+            "angle": 202.5
+          }
+        ]
+      },
+      "67.5": {
+        "scale": 2,
+        "path": "graphics/2861/67-5.png",
+        "ports": [
+          {
+            "x": 7,
+            "y": 4,
+            "angle": 67.5
+          },
+          {
+            "x": 31,
+            "y": 64,
+            "angle": 247.5
+          },
+          {
+            "x": 55,
+            "y": 57,
+            "angle": 225
+          }
+        ]
+      }
+    },
+    "geometry": {
+      "leftsplit": {
+        "keypress": "L",
+        "keymodifier": "Shift",
+        "button": {
+          "index": 3,
+          "path": "graphics/2861/leftsplit.png"
+        },
+        "startportnum": 0,
+        "bounds": {
+          "left": 0,
+          "top": -16.6506995,
+          "right": 34.2233965,
+          "bottom": 4
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": 32,
+            "y": 0,
+            "angle": 0,
+            "peer": 0
+          },
+          {
+            "x": 32.6926627,
+            "y": -12.9551813,
+            "angle": -22.5,
+            "peer": 0
+          }
+        ]
+      },
+      "rightjoin": {
+        "keypress": "R",
+        "keymodifier": "Alt",
+        "button": {
+          "index": 8,
+          "path": "graphics/2861/rightjoin.png"
+        },
+        "startportnum": 2,
+        "bounds": {
+          "left": 0,
+          "top": -15.66454497,
+          "right": 36.69254891,
+          "bottom": 4.23743166
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": -29.56414504,
+            "y": -12.24586984,
+            "angle": 0,
+            "peer": 0
+          },
+          {
+            "x": -35.16181518,
+            "y": -0.54191353,
+            "angle": -22.5,
+            "peer": 0
+          }
+        ]
+      },
+      "rightmerge": {
+        "keypress": "R",
+        "keymodifier": "Control",
+        "button": {
+          "index": 6,
+          "path": "graphics/2861/rightmerge.png"
+        },
+        "startportnum": 1,
+        "bounds": {
+          "left": -2.2233695,
+          "top": -4,
+          "right": 32,
+          "bottom": 16.6506995
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": -32,
+            "y": 0,
+            "angle": 0,
+            "peer": 0
+          },
+          {
+            "x": -32.6926627,
+            "y": 12.9551813,
+            "angle": -22.5,
+            "peer": 0
+          }
+        ]
+      }
+    }
+  },
+  "2859": {
+    "name": "right point",
+    "images": {
+      "0": {
+        "scale": 2,
+        "path": "graphics/2859/0.png",
+        "ports": [
+          {
+            "x": 0,
+            "y": 8,
+            "angle": 0
+          },
+          {
+            "x": 64,
+            "y": 8,
+            "angle": 180
+          },
+          {
+            "x": 65,
+            "y": 34,
+            "angle": 202.5
+          }
+        ]
+      },
+      "22.5": {
+        "scale": 2,
+        "path": "graphics/2859/22-5.png",
+        "ports": [
+          {
+            "x": 4,
+            "y": 7,
+            "angle": 22.5
+          },
+          {
+            "x": 64,
+            "y": 31,
+            "angle": 202.5
+          },
+          {
+            "x": 56,
+            "y": 56,
+            "angle": 225
+          }
+        ]
+      },
+      "45": {
+        "scale": 2,
+        "path": "graphics/2859/45.png",
+        "ports": [
+          {
+            "x": 12,
+            "y": 5,
+            "angle": 45
+          },
+          {
+            "x": 56,
+            "y": 51,
+            "angle": 225
+          },
+          {
+            "x": 39,
+            "y": 71,
+            "angle": 247.5
+          }
+        ]
+      },
+      "67.5": {
+        "scale": 2,
+        "path": "graphics/2859/67-5.png",
+        "ports": [
+          {
+            "x": 17,
+            "y": 3,
+            "angle": 67.5
+          },
+          {
+            "x": 42,
+            "y": 63,
+            "angle": 247.5
+          },
+          {
+            "x": 18,
+            "y": 74,
+            "angle": 270
+          }
+        ]
+      }
+    },
+    "geometry": {
+      "rightsplit": {
+        "keypress": "R",
+        "keymodifier": "Shift",
+        "button": {
+          "index": 4,
+          "path": "graphics/2859/rightsplit.png"
+        },
+        "startportnum": 0,
+        "bounds": {
+          "left": 0,
+          "top": -4,
+          "right": 34.2233965,
+          "bottom": 16.6506995
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": 32,
+            "y": 0,
+            "angle": 0,
+            "peer": 0
+          },
+          {
+            "x": 32.6926627,
+            "y": 12.9551813,
+            "angle": 22.5,
+            "peer": 0
+          }
+        ]
+      },
+      "leftjoin": {
+        "keypress": "L",
+        "keymodifier": "Alt",
+        "button": {
+          "index": 7,
+          "path": "graphics/2859/leftjoin.png"
+        },
+        "startportnum": 2,
+        "bounds": {
+          "left": 0,
+          "top": -4.23743166,
+          "right": 36.69254891,
+          "bottom": 15.66454497
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": -29.56414504,
+            "y": 12.24586984,
+            "angle": 0,
+            "peer": 0
+          },
+          {
+            "x": -35.16181518,
+            "y": 0.54191353,
+            "angle": 22.5,
+            "peer": 0
+          }
+        ]
+      },
+      "leftmerge": {
+        "keypress": "L",
+        "keymodifier": "Control",
+        "button": {
+          "index": 5,
+          "path": "graphics/2859/leftmerge.png"
+        },
+        "startportnum": 1,
+        "bounds": {
+          "left": -2.2233695,
+          "top": -16.6506995,
+          "right": 32,
+          "bottom": 4
+        },
+        "ports": [
+          {
+            "x": 0,
+            "y": 0,
+            "angle": 180,
+            "peer": 1
+          },
+          {
+            "x": -32,
+            "y": 0,
+            "angle": 0,
+            "peer": 0
+          },
+          {
+            "x": -32.6926627,
+            "y": -12.9551813,
+            "angle": 22.5,
+            "peer": 0
+          }
+        ]
+      }
+    }
+  }
+}
