@@ -11,6 +11,7 @@ class TrackPiece {
 
   constructor(type, geometry, cursor) {
     this.type = type;
+    this.library = partslibrary[this.type].library;
     this.geometry = geometry;
     this.location.x = cursor.x;
     this.location.y = cursor.y;

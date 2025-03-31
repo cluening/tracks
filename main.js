@@ -147,7 +147,7 @@ async function onLoad() {
   // Double clicks aren't finished yet, so this is disabled for now
   // canvas.addEventListener("dblclick", onCanvasDoubleClick);
 
-  partslibrary = await loadPartsLibrary();
+  partslibrary = await loadPartsLibrary("9v");
   buildToolbar();
 
   cursor.x = 100;
@@ -274,8 +274,8 @@ async function loadImage(imagepath) {
 }
 
 
-async function loadPartsLibrary() {
-  const url = "partslibrary/parts.json";
+async function loadPartsLibrary(libraryname) {
+  const url = "partslibrary/" + libraryname + "/parts.json";
   let partslibrary;
 
   try {
@@ -291,8 +291,9 @@ async function loadPartsLibrary() {
     for (const partname in partslibrary) {
       //console.log("Partname: " + partname);
       //partslibrary[partname]["images"] = await loadImages(partslibrary[partname].imagepaths);
+      partslibrary[partname].library = libraryname;
       for (const angle in partslibrary[partname].images) {
-        partslibrary[partname].images[angle].image = await loadImage("partslibrary/" + partslibrary[partname].images[angle].path)
+        partslibrary[partname].images[angle].image = await loadImage("partslibrary/" + libraryname + "/" + partslibrary[partname].images[angle].path)
       }
     }
 
@@ -331,7 +332,7 @@ function buildToolbar() {
       newbutton.addEventListener("click", onButtonClick);
 
       const newimage = document.createElement("img");
-      newimage.setAttribute("src", "partslibrary/" + partslibrary[part].geometry[geometry].button.path);
+      newimage.setAttribute("src", "partslibrary/" + partslibrary[part].library + "/" + partslibrary[part].geometry[geometry].button.path);
       newbutton.appendChild(newimage);
 
       toolbar.appendChild(newbutton);

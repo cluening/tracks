@@ -133,6 +133,7 @@ class Layout {
 
     for (const i in this.tracklist) {
       const currentpiece = Object();
+      currentpiece.library = this.tracklist[i].library;
       currentpiece.type = this.tracklist[i].type;
       currentpiece.geometry = this.tracklist[i].geometry;
       currentpiece.location = Object();
