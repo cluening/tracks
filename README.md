@@ -24,7 +24,7 @@ With that running, just point your browser at http://localhost:8080/ and start b
 
 While the original Track Designer had an extensive library of train-related pieces and sets, I've only included the standard 9 volt track pieces this parts library.  They work plenty well for modern plastic track too, and maybe I'll expand the parts library over time.
 
-While Javascript can read JSON really easily, humans can write YAML more easily.  So, the parts library's metadata is stored in YAML format.  Converting it to JSON is easy using the `yq` command:
+Javascript can read JSON really easily, but humans can write YAML more easily.  So, the parts library's metadata is stored in YAML format.  Converting it to JSON is easy using the `yq` command:
 ```
 yq -p yaml -o json parts.yaml
 ```
