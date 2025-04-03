@@ -12,7 +12,6 @@ function onCanvasClick(event) {
 
 
 function onCanvasDoubleClick(event) {
-  console.log("Double double!");
   cursor = cursor.handleCanvasDoubleClick(event.offsetX, event.offsetY);
   window.requestAnimationFrame(updateScreen);
 }
@@ -140,8 +139,6 @@ async function onLoad() {
   canvas.height = canvaswrapper.clientHeight;
   canvas.focus();
 
-  console.log("Loading!");
-
   canvas.addEventListener("keydown", onKeyDown);
   canvas.addEventListener("click", onCanvasClick);
   // Double clicks aren't finished yet, so this is disabled for now
@@ -154,80 +151,6 @@ async function onLoad() {
   cursor.y = 100;
   cursor.angle = 0;
 
-  // console.log("-------- Adding new straight piece --------");
-  // let newpiece = new TrackPiece("straight", "straight", cursor);
-  // console.log("Location:");
-  // console.log(newpiece.location);
-  // console.log("Angle:");
-  // console.log(newpiece.angle);
-  // console.log("Ports:");
-  // console.log(newpiece.ports);
-  // console.log("Active port:");
-  // console.log(newpiece.activeport);
-  // console.log("Cursor:");
-  // console.log(newpiece.cursor);
-  // cursor = newpiece.cursor;
-  // newpiece.drawPorts(ctx);
-
-  // console.log("-------- Adding new left curved piece --------");
-  // newpiece = new TrackPiece("curve", "left", cursor);
-  // console.log("Location:");
-  // console.log(newpiece.location);
-  // console.log("Angle:");
-  // console.log(newpiece.angle);
-  // console.log("Ports:");
-  // console.log(newpiece.ports);
-  // console.log("Active port:");
-  // console.log(newpiece.activeport);
-  // console.log("Cursor:");
-  // console.log(newpiece.cursor);
-  // cursor = newpiece.cursor;
-  // newpiece.drawPorts(ctx);
-
-  // console.log("-------- Adding new right curved piece --------");
-  // newpiece = new TrackPiece("curve", "right", cursor);
-  // console.log("Location:");
-  // console.log(newpiece.location);
-  // console.log("Angle:");
-  // console.log(newpiece.angle);
-  // console.log("Ports:");
-  // console.log(newpiece.ports);
-  // console.log("Active port:");
-  // console.log(newpiece.activeport);
-  // console.log("Cursor:");
-  // console.log(newpiece.cursor);
-  // cursor = newpiece.cursor;
-  // newpiece.drawPorts(ctx);
-
-  // console.log("-------- Adding new left switch piece --------");
-  // newpiece = new TrackPiece("leftpoint", "rightjoin", cursor);
-  // console.log("Location:");
-  // console.log(newpiece.location);
-  // console.log("Angle:");
-  // console.log(newpiece.angle);
-  // console.log("Ports:");
-  // console.log(newpiece.ports);
-  // console.log("Active port:");
-  // console.log(newpiece.activeport);
-  // console.log("Cursor:");
-  // console.log(newpiece.cursor);
-  // cursor = newpiece.cursor;
-  // newpiece.drawPorts(ctx);
-
-
-  // cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
-  // cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
-  // cursor = tracklist.add(new TrackPiece("32087", "crossing", cursor));
-  // cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
-  // cursor = tracklist.add(new TrackPiece("2865", "straight", cursor));
-  // cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
-  // cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
-  // cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
-  // cursor = tracklist.add(new TrackPiece("2867", "right", cursor));
-  // cursor = tracklist.add(new TrackPiece("2867", "left", cursor));
-
-  // tracklist.draw(ctx);
-  // cursor.draw(ctx);
   window.requestAnimationFrame(updateScreen);
 }
 
@@ -383,8 +306,6 @@ function updateStatusBar() {
 
 // Export the current layout
 function exportLayout(filename) {
-  console.log("Downloading a file");
-
   const blob = layout.createExportBlob();
 
   const link = document.createElement("a");
@@ -409,8 +330,6 @@ function exportLayout(filename) {
 
 // Display the file selection box
 function displayFileSelect(event) {
-  console.log("Selecting a file to import!");
-
   // Force a click on the hidden file selection input element
   fileselector = document.getElementById("fileselector");
   fileselector.click();
@@ -449,8 +368,6 @@ function confirmImportLayout(event) {
 
 // Check the result of the import confimration dialog and act on it
 function confirmImportDialogClosed(event) {
-  console.log("Confirm import dialog was closed!");
-
   const confirmimportdialog = document.getElementById("confirmimportdialog");
   console.log(confirmimportdialog.returnValue);
 
@@ -502,7 +419,7 @@ async function importLayout() {
       if (port.connectedpiece == -1) {
         continue;
       }
-      console.log(port);
+
       // FIXME: catch if otherpiece comes back undefined
       const otherpiece = layout.tracklist[port.connectedpiece];
       // FIXME: catch if x or y come back undefined
@@ -533,10 +450,7 @@ async function loadLayout(layoutfile) {
 
 
 function exportDialogClosed(event) {
-  console.log("Dialog was closed!");
-
   const exportdialog = document.getElementById("exportdialog");
-  console.log(exportdialog.returnValue);
 
   if (exportdialog.returnValue == "export") {
     const filename = document.getElementById("exportfilename").value + ".tracks";
