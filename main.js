@@ -434,13 +434,45 @@ function displayAboutDialog(event) {
 }
 
 
+// Display the file import confirmation dialog
+function confirmImportLayout(event) {
+  const confirmimportdialog = document.getElementById("confirmimportdialog");
+
+  if (layout.changed) {
+    confirmimportdialog.returnValue = "";
+    confirmimportdialog.showModal();
+  } else {
+    importLayout();
+  }
+}
+
+
+// Check the result of the import confimration dialog and act on it
+function confirmImportDialogClosed(event) {
+  console.log("Confirm import dialog was closed!");
+
+  const confirmimportdialog = document.getElementById("confirmimportdialog");
+  console.log(confirmimportdialog.returnValue);
+
+  if (confirmimportdialog.returnValue == "import") {
+    importLayout();
+  }
+}
+
+
 // Import a layout from a previously-exported file
 // FIXME: I should pop up a dialog confirming they want to clear the current layout, and then do that clearing before loading the new one
-async function importLayout(event) {
-  console.log("Actually importing a layout!");
+async function importLayout() {
+  //console.log("Actually importing a layout!");
 
   let layoutimport;
 
+  // Clear the existing layout
+  while (layout.tracklist.length > 0) {
+    layout.remove(layout.tracklist[0]);
+  }
+
+  // Try loading and parsing the file that was selected
   try {
     layoutimport = JSON.parse(await loadLayout(document.getElementById("fileselector").files[0]));
   } catch (exception) {
@@ -487,7 +519,6 @@ async function importLayout(event) {
 
 // Load a file and extract its text
 async function loadLayout(layoutfile) {
-  // FIXME: catch errors if the file can't be read
   const promise = new Promise((resolve, reject) => {
     const filereader = new FileReader();
     filereader.onload = () => resolve(filereader.result);
@@ -511,7 +542,6 @@ function exportDialogClosed(event) {
     const filename = document.getElementById("exportfilename").value + ".tracks";
     exportLayout(filename);
   }
-
 }
 
 

@@ -14,7 +14,7 @@
     <div class="pagewrapper">
       <div class="toolbarwrapper" id="toolbarwrapper">
         <button class="toolbarbutton pushright" style="order: 1000" onclick="displayFileSelect()">Import</button>
-        <input type="file" single id="fileselector" style="display:none" onchange="importLayout()">
+        <input type="file" single id="fileselector" style="display:none" onchange="confirmImportLayout()">
         <button class="toolbarbutton" style="order: 1001" onclick="displayExportDialog()">Export</button>
         <button class="toolbarbutton" style="order: 1002" onclick="displayAboutDialog()">?</button>
       </div>
@@ -37,8 +37,8 @@
             <input autofocus required type="text" id="exportfilename" size=12 maxlength=255 placeholder="filename" />.tracks
           </div>
           <div class="dialogbuttonwrapper">
-            <button formnovalidate type="button" value="cancel">Cancel</button>
             <button type="submit" value="export">Export</button>
+            <button formnovalidate value="cancel">Cancel</button>
           </div>
         </div>
       </form>
@@ -55,6 +55,23 @@
           </div>
           <div class="dialogbuttonwrapper">
             <button formnovalidate value="close">Close</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="confirmimportdialog" onClose="confirmImportDialogClosed()">
+      <form method="dialog">
+        <div class="dialogcontentwrapper">
+          <div class="dialogtitlewrapper">
+            <span class="dialogtitle">Import Layout</span>
+          </div>
+          <div>
+            <span class="dialogbody">Clear the current layout and import a new one?</span>
+          </div>
+          <div class="dialogbuttonwrapper">
+            <button type="submit" value="import">Import</button>
+            <button formnovalidate value="cancel">Cancel</button>
           </div>
         </div>
       </form>
