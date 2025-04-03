@@ -9,7 +9,9 @@ Original Train Depot Track Kit bitmaps used in accordance with their terms and c
 
 ## Usage
 
-Start out by cloning this repository.
+Just want to draw a layout?  Go for it: https://www.wirelesscouch.net/tracks/
+
+Want to run your own copy?  Start out by cloning this repository.
 
 This is a self-contained javascript application, but it needs a web server to serve it up.  You can put it on any ol' web server, or start a local one with python:
 ```
@@ -20,11 +22,11 @@ python -m http.server -b 127.0.0.1 8080
 With that running, just point your browser at http://localhost:8080/ and start building a layout!
 
 
-## Parts Library
+## Parts Library Updates
 
 While the original Track Designer had an extensive library of train-related pieces and sets, I've only included the standard 9 volt track pieces this parts library.  They work plenty well for modern plastic track too, and maybe I'll expand the parts library over time.
 
-Javascript can read JSON really easily, but humans can write YAML more easily.  So, the parts library's metadata is stored in YAML format.  Converting it to JSON is easy using the `yq` command:
+Javascript can read JSON really easily, but humans can write YAML more easily.  So, the parts library's metadata is stored in YAML format.  After making changes, converting it to JSON is easy using the `yq` command:
 ```
 yq -p yaml -o json parts.yaml
 ```
