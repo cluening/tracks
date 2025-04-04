@@ -35,7 +35,6 @@ function onBeforeUnload(event) {
 };
 
 
-// FIXME: this currently makes it all the way to the end on _any_ keypress, meaning, for example, it will scroll the cursor back into view if you just press and release the shift key.  It needs some way to tell if the key that was pressed actually did anything.
 function onKeyDown(event) {
   // console.log(event.code);
   let modifier;
@@ -58,8 +57,11 @@ function onKeyDown(event) {
     modifier = "None";
   }
 
-  cursor = cursor.handleKeyPress(event.code, modifier);
-  adjustCanvas();
+  const newcursor = cursor.handleKeyPress(event.code, modifier);
+  if (cursor != newcursor) {
+    cursor = newcursor;
+    adjustCanvas();
+  }
 
   window.requestAnimationFrame(updateScreen);
 }
