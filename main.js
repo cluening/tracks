@@ -378,7 +378,6 @@ function confirmImportDialogClosed(event) {
 
 
 // Import a layout from a previously-exported file
-// FIXME: I should pop up a dialog confirming they want to clear the current layout, and then do that clearing before loading the new one
 async function importLayout() {
   //console.log("Actually importing a layout!");
 
