@@ -18,13 +18,22 @@ function onCanvasDoubleClick(event) {
 
 
 function onButtonClick(event) {
-  const part = event.currentTarget.getAttribute("data-part");
-  const geometry = event.currentTarget.getAttribute("data-geometry");
+  const dataaction = event.currentTarget.getAttribute("data-action");
 
-  cursor = cursor.handleButtonClick(part, geometry);
-  adjustCanvas();
+  if (dataaction == "add") {
+    const part = event.currentTarget.getAttribute("data-part");
+    const geometry = event.currentTarget.getAttribute("data-geometry");
 
-  window.requestAnimationFrame(updateScreen);
+    cursor = cursor.handleButtonClick(part, geometry);
+    adjustCanvas();
+    window.requestAnimationFrame(updateScreen);
+  } else if (dataaction == "delete") {
+    cursor = layout.remove(cursor.activepiece);
+    adjustCanvas();
+    window.requestAnimationFrame(updateScreen);
+  }
+
+
 }
 
 
@@ -134,6 +143,7 @@ function adjustCanvas() {
 
 
 async function onLoad() {
+  const pagewrapper = document.getElementById("pagewrapper");
   const canvas = document.getElementById("layout");
   const canvaswrapper = document.getElementById("layoutwrapper");
 
@@ -141,7 +151,7 @@ async function onLoad() {
   canvas.height = canvaswrapper.clientHeight;
   canvas.focus();
 
-  canvas.addEventListener("keydown", onKeyDown);
+  pagewrapper.addEventListener("keydown", onKeyDown);
   canvas.addEventListener("click", onCanvasClick);
   // Double clicks aren't finished yet, so this is disabled for now
   // canvas.addEventListener("dblclick", onCanvasDoubleClick);
@@ -252,6 +262,7 @@ function buildToolbar() {
         newbutton.setAttribute("title", tooltipstring);
       }
       newbutton.style.order = partslibrary[part].geometry[geometry].button.index;
+      newbutton.setAttribute("data-action", "add");
       newbutton.setAttribute("data-part", part);
       newbutton.setAttribute("data-geometry", geometry);
       newbutton.addEventListener("click", onButtonClick);
@@ -271,6 +282,25 @@ function buildToolbar() {
       }
     }
   }
+
+  // Add buttons that should exist for all libraries
+  // Some space
+  const gapspan = document.createElement("span");
+  gapspan.style.width = "10px";
+  gapspan.style.order = 100;
+  toolbar.appendChild(gapspan);
+
+  // A delete button
+  const deletebutton = document.createElement("button");
+  deletebutton.style.order = 101;
+  deletebutton.setAttribute("data-action", "delete");
+  deletebutton.addEventListener("click", onButtonClick);
+  deletebutton.setAttribute("title", "Backspace");
+  const deleteimage = document.createElement("img");
+  deleteimage.setAttribute("src", "graphics/trash.png");
+  deletebutton.appendChild(deleteimage);
+  toolbar.appendChild(deletebutton);
+
 }
 
 

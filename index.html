@@ -11,12 +11,13 @@
   </head>
 
   <body onload="onLoad()">
-    <div class="pagewrapper">
+    <div class="pagewrapper" id="pagewrapper">
       <div class="toolbarwrapper" id="toolbarwrapper">
         <button class="toolbarbutton pushright" style="order: 1000" onclick="displayFileSelect()">Import</button>
         <input type="file" single id="fileselector" style="display:none" onchange="confirmImportLayout()">
         <button class="toolbarbutton" style="order: 1001" onclick="displayExportDialog()">Export</button>
-        <button class="toolbarbutton" style="order: 1002" onclick="displayAboutDialog()">?</button>
+        <span style="order:1002; width: 10px"></span>
+        <button class="toolbarbutton" style="order: 1003" onclick="displayAboutDialog()">About</button>
       </div>
       <div class="layoutwrapper" id="layoutwrapper">
         <canvas class="layout" id="layout" tabindex=1 width="320" height="240"></canvas>
